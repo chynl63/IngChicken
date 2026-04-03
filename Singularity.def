@@ -1,0 +1,13 @@
+Bootstrap: docker-archive
+From: dp_libero.tar
+
+%post
+    pip install --no-cache-dir bddl easydict cloudpickle gym huggingface_hub
+
+%environment
+    export LC_ALL=C
+    export PYTHONUNBUFFERED=1
+
+%labels
+    Author chaeyoon
+    Description Diffusion Policy + LIBERO (CL experiment)
