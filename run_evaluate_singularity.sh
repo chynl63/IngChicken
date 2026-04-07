@@ -19,7 +19,7 @@ BASE_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 GPU_DEVICE="${GPU_DEVICE:-0}"
 
-mkdir -p "${BASE_DIR}/results"
+mkdir -p "${BASE_DIR}/results" "${BASE_DIR}/logs"
 
 echo "========================================================"
 echo " Evaluating CL Checkpoints: Diffusion Policy + LIBERO-Object"
@@ -29,7 +29,8 @@ echo "  SIF:     $SIF_IMAGE"
 echo "  GPU:     $GPU_DEVICE"
 echo "  Mount:   $BASE_DIR -> /workspace"
 echo "  Ckpt:    ${BASE_DIR}/checkpoints/cl_libero_object/"
-echo "  Results: ${BASE_DIR}/results/cl_libero_object/"
+echo "  Results: ${BASE_DIR}/results/cl_libero_object/<run_tag>/"
+echo "  Logs:    ${BASE_DIR}/logs/<run_tag>/evaluate_checkpoints.log"
 echo ""
 
 CUDA_VISIBLE_DEVICES=$GPU_DEVICE singularity exec --nv --writable-tmpfs \
@@ -42,7 +43,10 @@ CUDA_VISIBLE_DEVICES=$GPU_DEVICE singularity exec --nv --writable-tmpfs \
       conda activate dp
       pip install -q "numpy<2" "h5py<3.12" bddl easydict cloudpickle gym
       export LIBERO_CONFIG_PATH=/tmp/libero_cfg
-      mkdir -p "${LIBERO_CONFIG_PATH}"
+      export HOME="/tmp/dp_eval_home_$$"
+      mkdir -p "${HOME}/.cache/torch/hub/checkpoints" "${LIBERO_CONFIG_PATH}"
+      export TORCH_HOME="${HOME}/torch_home"
+      mkdir -p "${TORCH_HOME}/hub/checkpoints"
       python - <<'"'"'PYEOF'"'"'
 import os
 import yaml
@@ -62,8 +66,9 @@ with open(os.path.join(cfg_dir, "config.yaml"), "w") as f:
 print("LIBERO config written:", os.path.join(cfg_dir, "config.yaml"))
 PYEOF
       python -m scripts.evaluation.evaluate_checkpoints \
-        --config /workspace/configs/continual_learning_libero_object.yaml
+        --config /workspace/configs/continual_learning_libero_object.yaml \
+        --run-tag-auto
     '
 
 echo ""
-echo "Evaluation complete! Results saved to: ${BASE_DIR}/results/cl_libero_object/"
+echo "Evaluation complete! Under ${BASE_DIR}: see results/cl_libero_object/<timestamp>/ and logs/<timestamp>/"

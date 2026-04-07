@@ -1,3 +1,5 @@
+# Same as continual_learning_libero_object.yaml but rollout horizon 300 for averaging runs.
+# Keeps the main yaml at 600 so queued 600-step GPU jobs still read 600 at start.
 seed: 42
 device: "cuda"
 
@@ -55,18 +57,15 @@ training:
 
 evaluation:
   num_episodes: 20
-  max_steps_per_episode: 600
+  max_steps_per_episode: 300
   action_execution_horizon: 8
   use_ddim: true
   ddim_steps: 16
   save_plots: true
-  # Optional rollout videos (off by default; used by evaluate_checkpoints.py)
   save_video: false
   video_fps: 10
   num_videos_per_task: 2
-  # first_k | balanced_two (balanced_two면 num_videos_per_task 무시)
   video_episode_policy: first_k
-  # Video-only postprocess (policy still uses raw agentview in sim)
   video_rotate_180: true
   video_crop_bottom_frac: 0.15
 

@@ -17,10 +17,11 @@ scripts/
   train_sequential.py         # 순차 CL 학습 (+ 선택적 매 task 평가)
   datasets/                   # HDF5 데이터로더
   model/                      # DiffusionPolicy, U-Net, 비전 인코더
-  evaluation/                 # 롤아웃 평가, NBT/heatmap 등
+  evaluation/                 # 롤아웃 평가, NBT/heatmap, merge_perf_matrices 등
 Singularity.def               # (선택) 컨테이너 빌드 정의
 run_sequential_singularity.sh
 run_evaluate_singularity.sh
+submit_*_a5000.sh             # (선택) Slurm 제출 예시
 ```
 
 ## 환경 요구사항
@@ -70,11 +71,34 @@ python -m scripts.evaluation.evaluate_checkpoints \
   --config configs/continual_learning_libero_object.yaml
 ```
 
-선택 인자:
+**한 번에 전체 체크포인트를 돌릴 때** 결과·로그를 실행 단위로 묶으려면 `--run-tag` 또는 `--run-tag-auto`를 씁니다.
+
+- `--run-tag-auto` — `logging.results_dir` 아래에 `YYYYMMDD_HHMMSS` 하위 폴더를 만들고, 같은 이름으로 레포 루트 **`logs/<tag>/evaluate_checkpoints.log`** 에 표준 출력을 복제 저장합니다.
+- `--run-tag NAME` — 위와 같되 폴더 이름을 직접 지정합니다.
+- `--results-dir`와 `--run-tag` / `--run-tag-auto`는 **동시에 쓰지 마세요** (고정 경로 vs 설정 기준 하위 경로).
+
+**Slurm 등으로 체크포인트를 쪼개 돌린 뒤** 행렬만 합치고 그때 히트맵을 그리는 경우, 각 잡에서는 PNG를 생략할 수 있습니다.
+
+- `--no-plots` — `heatmap.png`, `forgetting_summary.png` 생성 생략 (테이블·`eval_log.json` 등은 유지).
+- YAML `evaluation.save_plots: true|false` — 기본은 `true`. `--no-plots`가 있으면 항상 플롯을 끕니다.
+- 통합 시각화: `python -m scripts.evaluation.merge_perf_matrices --csv-glob '...' --out-dir ...` (merged 디렉터리에서 플롯 생성).
+
+그 밖의 선택 인자:
 
 - `--ckpt-dir` — 체크포인트 디렉터리 (미지정 시 설정의 `logging.checkpoint_dir`)
-- `--results-dir` — 결과 저장 위치
+- `--results-dir` — 결과 저장 위치 (**전체 경로**; `--run-tag*`와 배타적)
 - `--ckpt-pattern` — 예: `after_task_05.pt` 또는 `after_task_0[0-4].pt`
+
+#### 롤아웃 비디오 저장 (선택)
+
+`evaluation` 블록에서 끄고 켤 수 있습니다 (기본 `save_video: false`이면 기존과 동일).
+
+- `save_video`, `video_fps`, `num_videos_per_task`
+- `video_episode_policy`: `first_k` (기본, 앞에서 `num_videos_per_task`개 에피만 녹화) 또는 `balanced_two` (ep0 즉시 저장·ep1은 전부 같은 라벨이면 태스크 끝에 저장, mixed면 해당 에피만 추가 저장 후 캡처 중단). `balanced_two`일 때는 `num_videos_per_task`는 무시되며, 진행 로그에 `    [video balanced_two] ...` 한 줄 디버그가 붙습니다 (디스크 flush: `ep## is flushed to the disk`, RAM만: `버퍼에 유지`, scratch 폐기: `버퍼에서 제거, 디스크 저장 안 됨` 등).
+- 사람이 보기 좋게만 후처리: `video_rotate_180`, `video_crop_bottom_frac` (정책 입력 관측은 그대로)
+- 저장 위치: `results_dir/videos/<checkpoint_stem>/` 아래 mp4 (`imageio` / `imageio-ffmpeg` 필요).
+
+Sanity 전용 설정 예: `configs/sanity_eval_video.yaml`. Slurm 제출: `submit_sanity_video_a5000.sh`가 **`sbatch`로 GPU 노드에서 `singularity exec --nv`만 호출**하고, 실제 평가는 **`dp_libero.sif` 안의** `scripts/evaluation/singularity_eval_video_sanity.sh`가 수행합니다 (호스트 레포 전체를 `/workspace`에 바인드).
 
 ## Singularity (권장: 루트 전체 바인드)
 
@@ -85,19 +109,26 @@ python -m scripts.evaluation.evaluate_checkpoints \
 # 학습 (--skip-eval 권장 시 스크립트 내 설정 확인)
 GPU_DEVICE=0 bash run_sequential_singularity.sh
 
-# 체크포인트 평가
+# 체크포인트 일괄 평가 (--run-tag-auto: results·logs를 동일 타임스탬프 하위에 정리)
 GPU_DEVICE=0 bash run_evaluate_singularity.sh
 ```
 
-평가 스크립트는 컨테이너 안에서 `LIBERO_CONFIG_PATH` 등을 설정합니다. 데이터·체크포인트는 호스트 `data/`, `checkpoints/` 등에 두면 바인드된 `/workspace` 아래에서 동일 경로로 보입니다.
+`run_evaluate_singularity.sh`는 컨테이너 안에서 `evaluate_checkpoints`에 **`--run-tag-auto`** 를 넘깁니다. 결과는 대략 `results/cl_libero_object/<타임스탬프>/`, 로그 텍스트는 `logs/<타임스탬프>/evaluate_checkpoints.log`에 쌓입니다.
+
+**체크포인트별 Slurm 잡** (`scripts/evaluation/singularity_eval_one_ckpt.sh` 등)은 호스트에서 `--results-dir`로 **디렉터리 단위**로 마운트하는 전제이므로, 스크립트 안에서는 **`--no-plots`** 를 붙여 두었습니다. 최종 히트맵은 `merge_perf_matrices`로 만드는 것을 권장합니다.
+
+평가·학습 공통으로 컨테이너 안에서는 `HOME`/`TORCH_HOME`을 `/tmp` 하위로 두어 ResNet 등 사전학습 가중치 캐시가 쓰기 가능한 경로를 쓰도록 스크립트를 맞춰 두었습니다. `LIBERO_CONFIG_PATH` 등은 각 래퍼 스크립트에서 설정합니다. 데이터·체크포인트는 호스트 `data/`, `checkpoints/` 등에 두면 바인드된 `/workspace` 아래에서 동일 경로로 보입니다.
 
 ## 지표·산출물
 
-순차 CL에서 평가를 켜 두면 `results/` 에 다음이 생성될 수 있습니다 (설정에 따름):
+순차 CL에서 평가를 켜 두면 `results/` 에 다음이 생성될 수 있습니다 (설정·CLI에 따름):
 
-- `results.json`, `perf_matrix.csv`, `perf_matrix.npy`
-- `heatmap.png`, `forgetting_summary.png`
+- `results.json`, `perf_matrix.csv`, `perf_matrix.npy`, `eval_log.json` (및 선택적 `perf_matrix_intermediate.npy`)
+- `heatmap.png`, `forgetting_summary.png` — `--no-plots` 또는 `evaluation.save_plots: false` 이면 생략
+- 비디오 옵션 사용 시: `videos/<checkpoint_stem>/*.mp4`
 - 단계별 `training_log.json` 등
+
+run 태그를 쓰면 위 파일들이 **`logging.results_dir/<run_tag>/`** 한 곳에 모입니다. 동일 `<run_tag>`로 **`logs/<run_tag>/evaluate_checkpoints.log`** 에 콘솔 출력이 복사됩니다 (Slurm `%j.out`과 별개).
 
 **Negative Backward Transfer (NBT)** 등은 `scripts/evaluation/cl_metrics.py`에 정의되어 있습니다.
 

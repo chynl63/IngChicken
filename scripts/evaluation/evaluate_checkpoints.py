@@ -9,12 +9,18 @@ metrics, and visualizations.
 Usage:
     python -m scripts.evaluation.evaluate_checkpoints --config /path/to/config.yaml
     python -m scripts.evaluation.evaluate_checkpoints --config /path/to/config.yaml --ckpt-dir /path/to/ckpts
+    python -m scripts.evaluation.evaluate_checkpoints --config cfg.yaml --run-tag-auto --no-plots
+      # ->
+      #   results → logging.results_dir/<timestamp>/  (tables + optional PNGs)
+      #   logs    → <repo>/logs/<timestamp>/evaluate_checkpoints.log
 """
 
 import argparse
 import json
 import os
+import sys
 import time
+from datetime import datetime
 from pathlib import Path
 
 import numpy as np
@@ -35,8 +41,32 @@ from scripts.evaluation.cl_metrics import (
     plot_forgetting_summary,
 )
 
+_REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 
-def evaluate_all_checkpoints(cfg, ckpt_dir=None, results_dir=None, ckpt_pattern=None):
+
+class _StdoutTee:
+    """Mirror stdout to multiple text streams (e.g. console + log file)."""
+
+    def __init__(self, *files):
+        self.files = files
+
+    def write(self, obj):
+        for f in self.files:
+            f.write(obj)
+            f.flush()
+
+    def flush(self):
+        for f in self.files:
+            f.flush()
+
+
+def evaluate_all_checkpoints(
+    cfg,
+    ckpt_dir=None,
+    results_dir=None,
+    ckpt_pattern=None,
+    save_plots=True,
+):
     device = torch.device(cfg.get("device", "cuda"))
     seed = cfg.get("seed", 42)
     torch.manual_seed(seed)
@@ -85,10 +115,12 @@ def evaluate_all_checkpoints(cfg, ckpt_dir=None, results_dir=None, ckpt_pattern=
     eval_log = []
 
     total_start = time.time()
+    max_task_k_seen = -1
 
     for ckpt_path in ckpt_files:
         ckpt = torch.load(ckpt_path, map_location=device)
         task_k = ckpt["task_idx"]
+        max_task_k_seen = max(max_task_k_seen, task_k)
 
         print("\n" + "=" * 70)
         print(f"Evaluating checkpoint: {ckpt_path.name} (trained through task {task_k})")
@@ -101,6 +133,17 @@ def evaluate_all_checkpoints(cfg, ckpt_dir=None, results_dir=None, ckpt_pattern=
 
         task_indices = list(range(task_k + 1))
         stage_results = {}
+
+        save_video = bool(eval_cfg.get("save_video", False))
+        video_fps = float(eval_cfg.get("video_fps", 10.0))
+        num_videos_per_task = int(eval_cfg.get("num_videos_per_task", 2))
+        video_rotate_180 = bool(eval_cfg.get("video_rotate_180", False))
+        video_crop_bottom_frac = float(eval_cfg.get("video_crop_bottom_frac", 0.0))
+        video_episode_policy = str(eval_cfg.get("video_episode_policy", "first_k"))
+        video_root = None
+        if save_video:
+            video_root = results_dir / "videos" / ckpt_path.stem
+            video_root.mkdir(parents=True, exist_ok=True)
 
         for task_j in task_indices:
             t_start = time.time()
@@ -121,6 +164,14 @@ def evaluate_all_checkpoints(cfg, ckpt_dir=None, results_dir=None, ckpt_pattern=
                 use_ddim=eval_cfg.get("use_ddim", True),
                 ddim_steps=eval_cfg.get("ddim_steps", 16),
                 seed=seed,
+                save_video=save_video,
+                video_root=video_root,
+                checkpoint_stem=ckpt_path.stem,
+                video_fps=video_fps,
+                num_videos_per_task=num_videos_per_task,
+                video_rotate_180=video_rotate_180,
+                video_crop_bottom_frac=video_crop_bottom_frac,
+                video_episode_policy=video_episode_policy,
             )
             t_elapsed = time.time() - t_start
 
@@ -137,11 +188,18 @@ def evaluate_all_checkpoints(cfg, ckpt_dir=None, results_dir=None, ckpt_pattern=
                 "eval_time_s": round(t_elapsed, 1),
             }
 
-        avg_sr = np.nanmean(perf_matrix[task_k, :task_k + 1])
-        nbt_so_far = compute_nbt(perf_matrix[:task_k + 1, :task_k + 1])
+        cols = perf_matrix[task_k, : task_k + 1]
+        avg_sr = float(np.nanmean(cols))
+        nbt_so_far = compute_nbt(perf_matrix[: task_k + 1, : task_k + 1])
 
-        print(f"\n  --- After task {task_k} ---")
-        print(f"  Avg SR: {avg_sr:.4f} | NBT: {nbt_so_far:.4f}")
+        print(f"\n  --- After task {task_k} (checkpoint row {task_k}) ---")
+        print("  Per-task SR (each task evaluated separately; not pooled episodes):")
+        for j in range(task_k + 1):
+            print(f"    task {j}: {perf_matrix[task_k, j]:.4f}")
+        print(
+            f"  Mean SR (macro avg over tasks 0..{task_k}): {avg_sr:.4f} | "
+            f"NBT (submatrix 0..{task_k}): {nbt_so_far:.4f}"
+        )
 
         eval_log.append({
             "checkpoint": ckpt_path.name,
@@ -167,18 +225,23 @@ def evaluate_all_checkpoints(cfg, ckpt_dir=None, results_dir=None, ckpt_pattern=
     print("EVALUATION COMPLETE")
     print("=" * 70)
 
-    nbt_final = compute_nbt(perf_matrix[:n_found, :n_found])
-    avg_sr_final = compute_average_sr(perf_matrix[:n_found, :n_found])
+    sub_n = max_task_k_seen + 1
+    nbt_final = compute_nbt(perf_matrix[:sub_n, :sub_n])
+    final_stage = perf_matrix[max_task_k_seen, :sub_n]
+    mask = ~np.isnan(final_stage)
+    avg_sr_final = (
+        float(np.mean(final_stage[mask])) if np.any(mask) else 0.0
+    )
 
-    print(f"  Average SR (final): {avg_sr_final:.4f}")
-    print(f"  NBT: {nbt_final:.4f}")
+    print(f"  Average SR (final stage, macro over tasks 0..{max_task_k_seen}): {avg_sr_final:.4f}")
+    print(f"  NBT (submatrix 0..{max_task_k_seen}): {nbt_final:.4f}")
     print(f"  Total eval time: {total_time / 60:.1f} min")
     print()
 
-    print("  Performance Matrix:")
-    for i in range(n_found):
+    print("  Performance Matrix (submatrix through last evaluated task)")
+    for i in range(sub_n):
         row_str = "  "
-        for j in range(n_found):
+        for j in range(sub_n):
             if np.isnan(perf_matrix[i, j]):
                 row_str += "  --  "
             else:
@@ -196,12 +259,15 @@ def evaluate_all_checkpoints(cfg, ckpt_dir=None, results_dir=None, ckpt_pattern=
     with open(results_dir / "eval_log.json", "w") as f:
         json.dump(eval_log, f, indent=2)
 
-    plot_performance_matrix(
-        perf_matrix, task_names, str(results_dir / "heatmap.png")
-    )
-    plot_forgetting_summary(
-        perf_matrix, task_names, str(results_dir / "forgetting_summary.png")
-    )
+    if save_plots:
+        plot_performance_matrix(
+            perf_matrix, task_names, str(results_dir / "heatmap.png")
+        )
+        plot_forgetting_summary(
+            perf_matrix, task_names, str(results_dir / "forgetting_summary.png")
+        )
+    else:
+        print("\n(save_plots=False: skipped heatmap.png and forgetting_summary.png)")
 
     print(f"\nAll results saved to: {results_dir}")
     print("Done!")
@@ -238,14 +304,79 @@ if __name__ == "__main__":
             "If not provided, all 'after_task_*.pt' are evaluated."
         ),
     )
+    parser.add_argument(
+        "--no-plots",
+        action="store_true",
+        help="Skip heatmap/forgetting PNGs (for sharded eval; plot after merge_perf_matrices).",
+    )
+    parser.add_argument(
+        "--run-tag",
+        type=str,
+        default=None,
+        help=(
+            "Subdirectory under config logging.results_dir for this run. "
+            "Also writes logs/<run-tag>/evaluate_checkpoints.log under the repo. "
+            "Mutually exclusive with --results-dir."
+        ),
+    )
+    parser.add_argument(
+        "--run-tag-auto",
+        action="store_true",
+        help="Same as --run-tag but uses timestamp %%Y%%m%%d_%%H%%M%%S. Mutually exclusive with --results-dir.",
+    )
     args = parser.parse_args()
+
+    if args.run_tag and args.run_tag_auto:
+        print("Error: use only one of --run-tag or --run-tag-auto.", file=sys.stderr)
+        sys.exit(2)
+    if args.results_dir and (args.run_tag or args.run_tag_auto):
+        print(
+            "Error: do not combine --results-dir with --run-tag/--run-tag-auto. "
+            "Use --results-dir alone for a fixed path, or run-tag with config results_dir.",
+            file=sys.stderr,
+        )
+        sys.exit(2)
 
     with open(args.config, "r") as f:
         cfg = yaml.safe_load(f)
 
-    evaluate_all_checkpoints(
-        cfg,
-        ckpt_dir=args.ckpt_dir,
-        results_dir=args.results_dir,
-        ckpt_pattern=args.ckpt_pattern,
-    )
+    log_cfg = cfg["logging"]
+    eval_cfg = cfg.get("evaluation", {})
+    save_plots = bool(eval_cfg.get("save_plots", True)) and not args.no_plots
+
+    run_tag = args.run_tag
+    if args.run_tag_auto:
+        run_tag = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+    results_dir = args.results_dir
+    if results_dir is None and run_tag is not None:
+        results_dir = str(Path(log_cfg["results_dir"]) / run_tag)
+
+    log_f = None
+    saved_stdout = sys.stdout
+    try:
+        if run_tag is not None:
+            log_dir = _REPO_ROOT / "logs" / run_tag
+            log_dir.mkdir(parents=True, exist_ok=True)
+            log_path = log_dir / "evaluate_checkpoints.log"
+            log_f = open(log_path, "w", encoding="utf-8")
+            sys.stdout = _StdoutTee(saved_stdout, log_f)
+            print(f"[run] run_tag={run_tag}")
+            print(
+                f"[run] results_dir will be: "
+                f"{results_dir or log_cfg['results_dir']}"
+            )
+            print(f"[run] log file: {log_path}")
+            print(f"[run] save_plots={save_plots}")
+
+        evaluate_all_checkpoints(
+            cfg,
+            ckpt_dir=args.ckpt_dir,
+            results_dir=results_dir,
+            ckpt_pattern=args.ckpt_pattern,
+            save_plots=save_plots,
+        )
+    finally:
+        if log_f is not None:
+            sys.stdout = saved_stdout
+            log_f.close()
