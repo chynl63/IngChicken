@@ -129,11 +129,13 @@ def train_on_task(
     action_mean: np.ndarray,
     action_std: np.ndarray,
     device: torch.device,
+    global_step_start: int = 0,
+    wandb_run=None,
 ) -> tuple:
     """Train the model on a single task.
 
     Returns:
-        (model, ema, epoch_loss_history)
+        (model, ema, epoch_loss_history, global_step_end)
     """
     data_cfg = cfg["data"]
     train_cfg = cfg["training"]
@@ -163,34 +165,30 @@ def train_on_task(
         weight_decay=train_cfg.get("weight_decay", 1e-6),
     )
 
+    scheduler_name = str(train_cfg.get("lr_scheduler", "cosine")).lower()
     total_steps = epochs * len(loader)
     warmup_steps = train_cfg.get("lr_warmup_steps", 500)
 
-    def lr_lambda(step):
-        if step < warmup_steps:
-            return step / max(warmup_steps, 1)
-        progress = (step - warmup_steps) / max(total_steps - warmup_steps, 1)
-        return 0.5 * (1.0 + math.cos(math.pi * progress))
+    if scheduler_name == "constant":
+        scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lambda _: 1.0)
+    else:
+        def lr_lambda(step):
+            if step < warmup_steps:
+                return step / max(warmup_steps, 1)
+            progress = (step - warmup_steps) / max(total_steps - warmup_steps, 1)
+            return 0.5 * (1.0 + math.cos(math.pi * progress))
 
-    scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)
+        scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda)
 
     ema = EMAModel(model, decay=train_cfg.get("ema_decay", 0.995))
 
     use_amp = train_cfg.get("mixed_precision", True)
     scaler = GradScaler(enabled=use_amp)
 
-    use_wandb = log_cfg.get("use_wandb", False)
-    wandb_run = None
-    if use_wandb:
-        try:
-            import wandb
-            wandb_run = wandb
-        except ImportError:
-            print("  wandb not available, skipping wandb logging")
-            use_wandb = False
+    use_wandb = bool(log_cfg.get("use_wandb", False)) and wandb_run is not None
 
     epoch_losses = []
-    global_step = 0
+    global_step = int(global_step_start)
 
     for epoch in range(epochs):
         model.train()
@@ -231,11 +229,15 @@ def train_on_task(
             )
 
             if use_wandb and global_step % log_cfg.get("log_interval", 50) == 0:
-                wandb_run.log({
+                wandb_run.log(
+                    {
                     f"task_{task_idx}/loss": loss_val,
                     f"task_{task_idx}/lr": scheduler.get_last_lr()[0],
+                    "global/lr": scheduler.get_last_lr()[0],
                     "global_step": global_step,
-                })
+                    },
+                    step=global_step,
+                )
 
         avg_loss = np.mean(batch_losses)
         epoch_losses.append(avg_loss)
@@ -244,7 +246,7 @@ def train_on_task(
             f"loss={avg_loss:.4f} | lr={scheduler.get_last_lr()[0]:.2e}"
         )
 
-    return model, ema, epoch_losses
+    return model, ema, epoch_losses, global_step
 
 
 def main(cfg, skip_eval=False):
@@ -262,6 +264,34 @@ def main(cfg, skip_eval=False):
     results_dir = Path(log_cfg["results_dir"])
     ckpt_dir.mkdir(parents=True, exist_ok=True)
     results_dir.mkdir(parents=True, exist_ok=True)
+
+    # ── Optional: Weights & Biases ──
+    wandb_run = None
+    use_wandb = bool(log_cfg.get("use_wandb", False))
+    if use_wandb:
+        try:
+            import wandb
+
+            wandb_kwargs = {
+                "project": log_cfg.get("project", "dp_forgetting_libero"),
+                "config": cfg,
+            }
+            if log_cfg.get("wandb_entity"):
+                wandb_kwargs["entity"] = log_cfg["wandb_entity"]
+            if log_cfg.get("wandb_run_name"):
+                wandb_kwargs["name"] = log_cfg["wandb_run_name"]
+            if log_cfg.get("wandb_dir"):
+                wandb_kwargs["dir"] = log_cfg["wandb_dir"]
+
+            wandb.init(**wandb_kwargs)
+            wandb_run = wandb
+            print(
+                f"[wandb] enabled: project={wandb_kwargs.get('project')} "
+                f"name={wandb_kwargs.get('name')}"
+            )
+        except Exception as e:
+            print(f"[wandb] disabled (init failed): {type(e).__name__}: {e}")
+            wandb_run = None
 
     # ── 1. Set up LIBERO benchmark ──
     benchmark = get_benchmark(benchmark_cfg["name"])(
@@ -296,6 +326,7 @@ def main(cfg, skip_eval=False):
     }
 
     # ── 5. Sequential training loop ──
+    global_step = 0
     for task_k in range(n_tasks):
         print("\n" + "=" * 70)
         print(f"STAGE {task_k + 1}/{n_tasks}: Training on Task {task_k}")
@@ -307,7 +338,7 @@ def main(cfg, skip_eval=False):
 
         t_start = time.time()
 
-        model, ema, epoch_losses = train_on_task(
+        model, ema, epoch_losses, global_step = train_on_task(
             model=model,
             task_idx=task_k,
             task_name=task_names[task_k],
@@ -316,6 +347,8 @@ def main(cfg, skip_eval=False):
             action_mean=action_mean,
             action_std=action_std,
             device=device,
+            global_step_start=global_step,
+            wandb_run=wandb_run,
         )
 
         train_time = time.time() - t_start
@@ -345,6 +378,16 @@ def main(cfg, skip_eval=False):
             "train_time_s": train_time,
             "final_train_loss": float(epoch_losses[-1]),
         }
+
+        if wandb_run is not None:
+            try:
+                wandb_run.log({
+                    "stage/task_idx": task_k,
+                    "stage/train_time_s": float(train_time),
+                    "stage/final_train_loss": float(epoch_losses[-1]),
+                })
+            except Exception as e:
+                print(f"[wandb] stage log failed: {type(e).__name__}: {e}")
 
         if not skip_eval:
             # ── Evaluate on all seen tasks ──
@@ -416,6 +459,11 @@ def main(cfg, skip_eval=False):
 
         print(f"All results saved to: {results_dir}")
         print("Done!")
+        if wandb_run is not None:
+            try:
+                wandb_run.finish()
+            except Exception:
+                pass
         return
 
     print("\n" + "=" * 70)
@@ -467,6 +515,11 @@ def main(cfg, skip_eval=False):
 
     print(f"\nAll results saved to: {results_dir}")
     print("Done!")
+    if wandb_run is not None:
+        try:
+            wandb_run.finish()
+        except Exception:
+            pass
 
 
 def _save_intermediate(perf_matrix, task_names, training_log, cfg, results_dir, task_k):

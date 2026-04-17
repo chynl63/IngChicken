@@ -47,8 +47,8 @@ continual_learning:
 training:
   learning_rate: 1.0e-4
   weight_decay: 1.0e-6
-  lr_scheduler: "cosine"
-  lr_warmup_steps: 500
+  lr_scheduler: "constant"
+  lr_warmup_steps: 0
   ema_decay: 0.995
   gradient_clip: 1.0
   mixed_precision: true
@@ -76,8 +76,12 @@ replay:
   mix_ratio: 0.5
 
 logging:
-  project: "diffusion_policy_cl_libero_object"
+  project: "baseline"
   log_interval: 50
-  checkpoint_dir: "/workspace/checkpoints/cl_libero_object"
-  results_dir: "/workspace/results/cl_libero_object"
-  use_wandb: false
+  checkpoint_dir: "/home/cyhoaoen/dp_forgetting_libero/checkpoints/cl_libero_object2"
+  results_dir: "/home/cyhoaoen/dp_forgetting_libero/results/cl_libero_object2"
+  use_wandb: true
+  # Optional W&B knobs (safe defaults; override via env if needed)
+  wandb_entity: "ingchicken"
+  wandb_run_name: "cl_libero_object2"
+  wandb_dir: "/home/cyhoaoen/dp_forgetting_libero/wandb"
