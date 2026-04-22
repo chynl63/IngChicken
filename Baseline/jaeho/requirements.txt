@@ -1,0 +1,65 @@
+# Unified environment for:
+# 1) LIBERO official requirements.txt + README install pins
+# 2) diffusion_policy official conda_environment.yaml
+# 3) this repo's direct imports (PyYAML, h5py, tqdm, huggingface_hub)
+#
+# Conflict policy:
+# - When LIBERO and diffusion_policy disagree on the core robotics stack,
+#   prefer LIBERO's official pins because this repo imports LIBERO directly
+#   and reimplements diffusion_policy locally.
+# - diffusion_policy-only packages are kept at the versions pinned in its
+#   official conda environment where they do not conflict with LIBERO.
+
+--extra-index-url https://download.pytorch.org/whl/cu113
+
+# Core stack: pinned to LIBERO official install
+torch==1.11.0+cu113
+torchvision==0.12.0+cu113
+torchaudio==0.11.0
+hydra-core==1.2.0
+numpy==1.22.4
+wandb==0.13.1
+easydict==1.9
+transformers==4.21.1
+opencv-python==4.6.0.66
+robomimic==0.2.0
+robosuite==1.4.0
+# Python 3.8-compatible MuJoCo pin for the current Docker base image.
+mujoco==3.2.3
+einops==0.4.1
+thop==0.1.1.post2209072238
+bddl==1.0.1
+future==0.18.2
+matplotlib==3.5.3
+cloudpickle==2.1.0
+gym==0.25.2
+
+# Local repo requirements
+h5py==3.7.0
+PyYAML==6.0.1
+tqdm==4.64.1
+huggingface_hub==0.24.7
+
+# diffusion_policy core additions
+numba==0.56.4
+scipy==1.9.1
+cffi==1.15.1
+zarr==2.12.0
+numcodecs==0.10.2
+dill==0.3.5.1
+scikit-video==1.1.11
+scikit-image==0.19.3
+threadpoolctl==3.1.0
+shapely==1.8.4
+cython==0.29.32
+imageio==2.22.0
+imageio-ffmpeg==0.4.7
+termcolor==2.0.1
+tensorboard==2.10.1
+tensorboardx==2.5.1
+psutil==5.9.2
+click==8.0.4
+boto3==1.24.96
+accelerate==0.13.2
+datasets==2.6.1
+diffusers==0.11.1
