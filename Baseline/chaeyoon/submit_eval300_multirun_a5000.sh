@@ -13,7 +13,7 @@
 #   BATCH_TAG=20250404a RUN_INDICES="2 3 4 5" bash submit_eval300_multirun_a5000.sh
 
 set -euo pipefail
-BASE="/home/cyhoaoen/dp_forgetting_libero"
+BASE="/home/cyhoaoen/IngChicken/Baseline/chaeyoon"
 mkdir -p "${BASE}/logs"
 
 # One tag per sbatch wave → result dirs never overwrite previous waves.

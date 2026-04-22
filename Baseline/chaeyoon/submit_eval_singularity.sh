@@ -14,7 +14,7 @@
 #
 set -euo pipefail
 
-BASE="${BASE:-/home/cyhoaoen/dp_forgetting_libero}"
+BASE="${BASE:-/home/cyhoaoen/IngChicken/Baseline/chaeyoon}"
 SIF_IMAGE="${SIF_IMAGE:-${BASE}/dp_libero.sif}"
 PARTITION="${PARTITION:-gigabyte_a6000}"
 TIME="${TIME:-24:00:00}"

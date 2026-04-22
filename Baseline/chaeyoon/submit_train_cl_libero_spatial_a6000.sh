@@ -5,7 +5,7 @@
 # Usage:
 #   bash submit_train_cl_libero_spatial_a6000.sh
 #   GPU_DEVICE=0 PARTITION=gigabyte_a6000 TIME=48:00:00 bash submit_train_cl_libero_spatial_a6000.sh
-#   SIF_IMAGE=/home/cyhoaoen/dp_forgetting_libero/dp_libero.sif bash submit_train_cl_libero_spatial_a6000.sh
+#   SIF_IMAGE=/home/cyhoaoen/IngChicken/Baseline/chaeyoon/dp_libero.sif bash submit_train_cl_libero_spatial_a6000.sh
 #
 # Optional:
 #   SKIP_EVAL=0 bash submit_train_cl_libero_spatial_a6000.sh   # run per-task rollouts (slower)
@@ -18,7 +18,7 @@
 # - W&B API key: export WANDB_API_KEY=... or ~/.netrc before sbatch
 set -euo pipefail
 
-BASE="/home/cyhoaoen/dp_forgetting_libero"
+BASE="/home/cyhoaoen/IngChicken/Baseline/chaeyoon"
 mkdir -p "${BASE}/logs" "${BASE}/wandb" \
   "${BASE}/checkpoints/cl_libero_spatial" "${BASE}/results/cl_libero_spatial"
 

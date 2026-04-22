@@ -13,7 +13,7 @@
 # Logs:    logs/lib_video_sanity_<SLURM_JOBID>.{out,err}
 
 set -euo pipefail
-BASE="/home/cyhoaoen/dp_forgetting_libero"
+BASE="/home/cyhoaoen/IngChicken/Baseline/chaeyoon"
 mkdir -p "${BASE}/logs"
 
 RESULT_TAG="${RESULT_TAG:-$(date +%Y%m%d_%H%M%S)}"

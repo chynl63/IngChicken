@@ -9,6 +9,7 @@ then computes MSE between student and teacher DDIM action predictions.
 from __future__ import annotations
 
 import os
+import sys
 import collections
 from typing import Dict, List, Optional, Tuple
 
@@ -16,7 +17,18 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 
-from scripts.evaluation.rollout_evaluator import (
+# Rollout helpers currently live in the chaeyoon baseline codebase. Add it to
+# sys.path so this file can be imported either from Baseline/chaeyoon (the
+# usual training entry point) or stand-alone from within SDFT/MSE/.
+_REPO_ROOT = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..", "..")
+)
+_CHAEYOON_ROOT = os.path.join(_REPO_ROOT, "Baseline", "chaeyoon")
+for _p in (_CHAEYOON_ROOT, _REPO_ROOT):
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
+
+from scripts.evaluation.rollout_evaluator import (  # noqa: E402
     process_env_obs,
     obs_buffer_to_batch,
     predict_action_ddim,

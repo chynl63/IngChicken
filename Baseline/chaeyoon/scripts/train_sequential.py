@@ -11,6 +11,7 @@ Usage (from repo root, or inside container with cwd /workspace):
 """
 
 import os
+import sys
 import copy
 import math
 import json
@@ -19,6 +20,12 @@ import uuid
 import argparse
 from pathlib import Path
 from datetime import datetime
+
+_REPO_ROOT = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..", "..", "..")
+)
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
 
 import yaml
 import numpy as np
@@ -45,7 +52,7 @@ from scripts.evaluation import (
 
 from libero.libero.benchmark import get_benchmark
 
-from scripts.training.sdft import (
+from SDFT.MSE.sdft import (
     collect_onpolicy_observations,
     stack_obs_batches,
     compute_sdft_loss,

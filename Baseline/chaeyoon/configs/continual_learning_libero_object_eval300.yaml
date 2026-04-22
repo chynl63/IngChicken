@@ -90,9 +90,9 @@ replay:
 logging:
   project: "baseline"
   log_interval: 50
-  checkpoint_dir: "/home/cyhoaoen/dp_forgetting_libero/checkpoints/cl_libero_object2"
-  results_dir: "/home/cyhoaoen/dp_forgetting_libero/results/cl_libero_object2"
+  checkpoint_dir: "/home/cyhoaoen/IngChicken/Baseline/chaeyoon/checkpoints/cl_libero_object2"
+  results_dir: "/home/cyhoaoen/IngChicken/Baseline/chaeyoon/results/cl_libero_object2"
   use_wandb: true
   wandb_entity: "ingchicken"
   wandb_run_name: "cl_libero_object2_eval300"
-  wandb_dir: "/home/cyhoaoen/dp_forgetting_libero/wandb"
+  wandb_dir: "/home/cyhoaoen/IngChicken/Baseline/chaeyoon/wandb"

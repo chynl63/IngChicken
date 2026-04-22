@@ -5,7 +5,7 @@
 #   BATCH_TAG=run1 bash submit_eval600_a5000.sh
 
 set -euo pipefail
-BASE="/home/cyhoaoen/dp_forgetting_libero"
+BASE="/home/cyhoaoen/IngChicken/Baseline/chaeyoon"
 mkdir -p "${BASE}/logs"
 
 BATCH_TAG="${BATCH_TAG:-$(date +%Y%m%d_%H%M%S)}"

@@ -4,15 +4,15 @@
 # Usage:
 #   bash submit_train_cl_libero_object2_a5000.sh
 #   GPU_DEVICE=0 PARTITION=gigabyte_a5000 TIME=24:00:00 bash submit_train_cl_libero_object2_a5000.sh
-#   SIF_IMAGE=/home/cyhoaoen/dp_forgetting_libero/dp_libero.sif bash submit_train_cl_libero_object2_a5000.sh
+#   SIF_IMAGE=/home/cyhoaoen/IngChicken/Baseline/chaeyoon/dp_libero.sif bash submit_train_cl_libero_object2_a5000.sh
 #
 # Notes:
-# - Checkpoints: /home/cyhoaoen/dp_forgetting_libero/checkpoints/cl_libero_object2
-# - Results:     /home/cyhoaoen/dp_forgetting_libero/results/cl_libero_object2
+# - Checkpoints: /home/cyhoaoen/IngChicken/Baseline/chaeyoon/checkpoints/cl_libero_object2
+# - Results:     /home/cyhoaoen/IngChicken/Baseline/chaeyoon/results/cl_libero_object2
 # - W&B:         enabled in configs/continual_learning_libero_object.yaml (entity: ingchicken)
 set -euo pipefail
 
-BASE="/home/cyhoaoen/dp_forgetting_libero"
+BASE="/home/cyhoaoen/IngChicken/Baseline/chaeyoon"
 mkdir -p "${BASE}/logs" "${BASE}/wandb" \
   "${BASE}/checkpoints/cl_libero_object3" "${BASE}/results/cl_libero_object3"
 

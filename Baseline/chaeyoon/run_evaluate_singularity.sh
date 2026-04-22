@@ -5,7 +5,7 @@ set -e
 #
 # Usage:
 #   bash run_evaluate_singularity.sh
-#   BASE=/path/to/dp_forgetting_libero bash run_evaluate_singularity.sh
+#   BASE=/path/to/IngChicken/Baseline/chaeyoon bash run_evaluate_singularity.sh
 #   SIF_IMAGE=/path/to/dp_libero.sif bash run_evaluate_singularity.sh
 #
 # Optional (passed to submit_eval_singularity.sh):

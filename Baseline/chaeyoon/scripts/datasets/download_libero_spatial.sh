@@ -7,7 +7,7 @@
 set -e
 
 # Default: project data dir (HF writes under <parent>/libero_spatial/)
-DATA_DIR="${1:-/home/cyhoaoen/dp_forgetting_libero/data/libero_spatial}"
+DATA_DIR="${1:-/home/cyhoaoen/IngChicken/Baseline/chaeyoon/data/libero_spatial}"
 PARENT_DIR="$(dirname "$DATA_DIR")"
 mkdir -p "$DATA_DIR"
 
