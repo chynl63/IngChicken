@@ -19,10 +19,10 @@ BASE_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 GPU_DEVICE="${GPU_DEVICE:-0}"
 
-mkdir -p "${BASE_DIR}/checkpoints/cl_libero_object3" "${BASE_DIR}/results/cl_libero_object3" "${BASE_DIR}/wandb"
+mkdir -p "${BASE_DIR}/checkpoints/cl_libero_spatial" "${BASE_DIR}/results/cl_libero_spatial" "${BASE_DIR}/wandb"
 
 echo "========================================================"
-echo " Sequential CL Training: Diffusion Policy + LIBERO-Object"
+echo " Sequential CL Training: Diffusion Policy + LIBERO-Spatial"
 echo " (Singularity)"
 echo "========================================================"
 echo "  SIF:     $SIF_IMAGE"
@@ -37,13 +37,12 @@ CUDA_VISIBLE_DEVICES=$GPU_DEVICE singularity exec --nv \
     bash -lc '
       set -e
       cd /workspace
-      source /opt/conda/etc/profile.d/conda.sh
-      conda activate dp
+      source /workspace/scripts/singularity/dp_image_env.sh
       python -m pip install -q wandb
       python -m scripts.train_sequential \
-        --config /workspace/configs/continual_learning_libero_object.yaml \
+        --config /workspace/configs/continual_learning_libero_spatial.yaml \
         --skip-eval
     '
 
 echo ""
-echo "Training complete! Checkpoints saved to: ${BASE_DIR}/checkpoints/cl_libero_object/"
+echo "Training complete! Checkpoints saved to: ${BASE_DIR}/checkpoints/cl_libero_spatial/"

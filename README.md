@@ -1,12 +1,13 @@
 # Diffusion Policy + LIBERO (Continual Learning 실험)
 
 LIBERO 벤치마크에서 **Diffusion Policy**를 학습·평가하는 코드입니다.  
-두 가지 사용 시나리오를 지원합니다.
+기본 순차 CL 설정은 **LIBERO-Spatial**입니다 (Object·90 등 다른 스위트는 설정만 바꿔 사용).
 
 | 시나리오 | 설명 | 설정 파일 |
 |----------|------|-----------|
 | **LIBERO-90 단일 학습** | 90개 task 데모를 per-task 균등 샘플링으로 한 번에 학습 | `configs/diffusion_policy_libero90.yaml` |
-| **순차 CL (LIBERO-Object)** | Object 벤치마크 task를 순서대로 학습하며 forgetting 지표 측정 | `configs/continual_learning_libero_object.yaml` |
+| **순차 CL (LIBERO-Spatial)** | Spatial 벤치마크(10 task)를 순서대로 학습하며 forgetting 지표 측정 | `configs/continual_learning_libero_spatial.yaml` |
+| **순차 CL (LIBERO-Object)** | Object 벤치마크(10 task) 순차 학습 | `configs/continual_learning_libero_object.yaml` |
 
 ## 레포지토리 구조
 
@@ -34,7 +35,8 @@ submit_*_a5000.sh             # (선택) Slurm 제출 예시
 
 ## 데이터·경로 설정
 
-- **CL (Object)**: `configs/continual_learning_libero_object.yaml`의 `benchmark.data_root`를 LIBERO Object 데모 HDF5가 있는 디렉터리로 맞춥니다 (예: 컨테이너 내부 `/workspace/data`).
+- **CL (Spatial)**: 데모를 받은 뒤 `benchmark.data_root`를 `libero_spatial` 폴더의 **부모**로 둡니다 (LIBERO가 `libero_spatial/<demo>.hdf5` 형태로 경로를 반환). 예: 데모가 `data/libero_spatial/*.hdf5`이면 `data_root: .../data`). 다운로드: `bash scripts/datasets/download_libero_spatial.sh`
+- **CL (Object)**: `configs/continual_learning_libero_object.yaml`의 `benchmark.data_root`를 Object 데모 상위 디렉터리로 맞춥니다. 다운로드: `bash scripts/datasets/download_libero_object.sh`
 - **LIBERO-90**: `configs/diffusion_policy_libero90.yaml`의 `data.data_dir`를 90 task HDF5가 모인 디렉터리로 설정합니다.
 
 체크포인트·결과 디렉터리는 각 YAML의 `logging.checkpoint_dir`, `logging.results_dir`에서 지정합니다.
@@ -49,26 +51,30 @@ submit_*_a5000.sh             # (선택) Slurm 제출 예시
 python -m scripts.train --config configs/diffusion_policy_libero90.yaml
 ```
 
-### 2) 순차 CL 학습 (LIBERO-Object)
+### 2) 순차 CL 학습 (LIBERO-Spatial, 기본)
 
 ```bash
 python -m scripts.train_sequential \
-  --config configs/continual_learning_libero_object.yaml
+  --config configs/continual_learning_libero_spatial.yaml
 ```
+
+(`--config` 생략 시에도 동일한 Spatial 설정이 기본값입니다.)
 
 평가를 생략하고 체크포인트만 저장:
 
 ```bash
 python -m scripts.train_sequential \
-  --config configs/continual_learning_libero_object.yaml \
+  --config configs/continual_learning_libero_spatial.yaml \
   --skip-eval
 ```
+
+**LIBERO-Object**로 돌릴 때는 `configs/continual_learning_libero_object.yaml`을 지정하면 됩니다.
 
 ### 3) 저장된 CL 체크포인트만 일괄 평가
 
 ```bash
 python -m scripts.evaluation.evaluate_checkpoints \
-  --config configs/continual_learning_libero_object.yaml
+  --config configs/continual_learning_libero_spatial.yaml
 ```
 
 **한 번에 전체 체크포인트를 돌릴 때** 결과·로그를 실행 단위로 묶으려면 `--run-tag` 또는 `--run-tag-auto`를 씁니다.
@@ -113,7 +119,7 @@ GPU_DEVICE=0 bash run_sequential_singularity.sh
 GPU_DEVICE=0 bash run_evaluate_singularity.sh
 ```
 
-`run_evaluate_singularity.sh`는 컨테이너 안에서 `evaluate_checkpoints`에 **`--run-tag-auto`** 를 넘깁니다. 결과는 대략 `results/cl_libero_object/<타임스탬프>/`, 로그 텍스트는 `logs/<타임스탬프>/evaluate_checkpoints.log`에 쌓입니다.
+`run_evaluate_singularity.sh`는 컨테이너 안에서 `evaluate_checkpoints`에 **`--run-tag-auto`** 를 넘깁니다. 결과는 대략 `results/cl_libero_spatial/<타임스탬프>/`, 로그 텍스트는 `logs/<타임스탬프>/evaluate_checkpoints.log`에 쌓입니다 (YAML의 `logging.results_dir` 기준).
 
 **체크포인트별 Slurm 잡** (`scripts/evaluation/singularity_eval_one_ckpt.sh` 등)은 호스트에서 `--results-dir`로 **디렉터리 단위**로 마운트하는 전제이므로, 스크립트 안에서는 **`--no-plots`** 를 붙여 두었습니다. 최종 히트맵은 `merge_perf_matrices`로 만드는 것을 권장합니다.
 

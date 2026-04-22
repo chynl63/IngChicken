@@ -1,5 +1,6 @@
 from .rollout_evaluator import (
     predict_action_ddim,
+    predict_action_ddim_grad,
     evaluate_policy_on_task,
     evaluate_checkpoint_on_all_tasks,
 )

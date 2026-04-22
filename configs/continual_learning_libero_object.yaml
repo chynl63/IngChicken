@@ -44,6 +44,20 @@ unet:
 continual_learning:
   epochs_per_task: 50
 
+# On-policy SDFT (optional). use_sdft=false keeps behavior identical to baseline CL.
+sdft:
+  use_sdft: false
+  lambda_sdft: 0.1
+  sdft_rollout_interval: 500
+  teacher_sync_interval: 500
+  sdft_rollout_horizon: 600
+  sdft_num_episodes: 2
+  sdft_max_states_per_batch: 64
+  sdft_ddim_steps: 16
+  teacher_update_mode: "periodic_sync"
+  teacher_ema_decay: 0.995
+  log_sdft_debug: false
+
 training:
   learning_rate: 1.0e-4
   weight_decay: 1.0e-6

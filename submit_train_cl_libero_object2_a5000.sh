@@ -50,8 +50,7 @@ exec singularity exec --nv --writable-tmpfs \\
   bash -lc '
     set -euo pipefail
     cd /workspace
-    source /opt/conda/etc/profile.d/conda.sh
-    conda activate dp
+    source /workspace/scripts/singularity/dp_image_env.sh
     python -m pip install -q wandb
     python -m scripts.train_sequential \\
       --config /workspace/configs/continual_learning_libero_object.yaml \\

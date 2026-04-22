@@ -21,9 +21,13 @@ import torch.nn.functional as F
 # DDIM Inference
 # ─────────────────────────────────────────────
 
-@torch.no_grad()
-def predict_action_ddim(model, batch, num_inference_steps=16):
+def _predict_action_ddim_core(
+    model, batch, num_inference_steps=16, x_init: Optional[torch.Tensor] = None
+):
     """DDIM-style accelerated inference (deterministic, eta=0).
+
+    Shared implementation for ``predict_action_ddim`` (no grad) and
+    ``predict_action_ddim_grad`` (gradients enabled for student SDFT).
 
     Uses evenly spaced timestep subsequence that avoids the terminal noise
     level where alphas_cumprod ≈ 0 (which causes numerical explosion in
@@ -33,6 +37,10 @@ def predict_action_ddim(model, batch, num_inference_steps=16):
         model: DiffusionPolicy instance (or EMA copy).
         batch: dict of observation tensors on the correct device.
         num_inference_steps: number of denoising steps (< num_diffusion_steps).
+        x_init: optional initial noise (B, action_horizon, action_dim). If set,
+            the same tensor should be used for student and teacher in SDFT so
+            DDIM trajectories are comparable (only the first denoising step reads
+            this buffer; the loop rebinds ``x`` afterward).
 
     Returns:
         Predicted actions tensor of shape (B, action_horizon, action_dim).
@@ -42,7 +50,10 @@ def predict_action_ddim(model, batch, num_inference_steps=16):
     device = obs_cond.device
     T = model.num_diffusion_steps
 
-    x = torch.randn(B, model.action_horizon, model.action_dim, device=device)
+    if x_init is None:
+        x = torch.randn(B, model.action_horizon, model.action_dim, device=device)
+    else:
+        x = x_init
 
     step_ratio = T // num_inference_steps
     ddim_timesteps = (np.arange(0, num_inference_steps) * step_ratio).astype(np.int64)
@@ -67,6 +78,17 @@ def predict_action_ddim(model, batch, num_inference_steps=16):
         x = torch.sqrt(alpha_cumprod_prev) * pred_x0 + pred_dir
 
     return x
+
+
+@torch.no_grad()
+def predict_action_ddim(model, batch, num_inference_steps=16, x_init=None):
+    """DDIM inference without gradients (rollout / teacher)."""
+    return _predict_action_ddim_core(model, batch, num_inference_steps, x_init=x_init)
+
+
+def predict_action_ddim_grad(model, batch, num_inference_steps=16, x_init=None):
+    """DDIM inference with gradients enabled (SDFT student path)."""
+    return _predict_action_ddim_core(model, batch, num_inference_steps, x_init=x_init)
 
 
 # ─────────────────────────────────────────────

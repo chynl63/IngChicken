@@ -68,6 +68,13 @@ def evaluate_all_checkpoints(
     save_plots=True,
 ):
     device = torch.device(cfg.get("device", "cuda"))
+    if device.type == "cuda" and not torch.cuda.is_available():
+        print(
+            "[evaluate_checkpoints] torch.cuda.is_available() is False in this process; "
+            "using CPU. On clusters, use sbatch/salloc + `singularity exec --nv` with a GPU."
+        )
+        device = torch.device("cpu")
+
     seed = cfg.get("seed", 42)
     torch.manual_seed(seed)
     np.random.seed(seed)
@@ -118,7 +125,9 @@ def evaluate_all_checkpoints(
     max_task_k_seen = -1
 
     for ckpt_path in ckpt_files:
-        ckpt = torch.load(ckpt_path, map_location=device)
+        # Always unpickle to CPU first: ckpt files may contain GPU tensors; using
+        # map_location=cuda here fails if this process does not see CUDA yet.
+        ckpt = torch.load(ckpt_path, map_location=torch.device("cpu"))
         task_k = ckpt["task_idx"]
         max_task_k_seen = max(max_task_k_seen, task_k)
 
@@ -280,7 +289,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--config",
         type=str,
-        default="/workspace/configs/continual_learning_libero_object.yaml",
+        default=str(_REPO_ROOT / "configs" / "continual_learning_libero_spatial.yaml"),
     )
     parser.add_argument(
         "--ckpt-dir",

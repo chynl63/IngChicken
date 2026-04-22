@@ -1,12 +1,18 @@
-# Same as continual_learning_libero_object.yaml but rollout horizon 300 for averaging runs.
-# Keeps the main yaml at 600 so queued 600-step GPU jobs still read 600 at start.
+# Sequential CL on LIBERO-Spatial (10 tasks).
+#
+# 1) Download demos:
+#    bash scripts/datasets/download_libero_spatial.sh
+#    # Default: <repo>/data/libero_spatial  (HF stores under <parent>/libero_spatial/)
+#
+# 2) benchmark.data_root = parent of the `libero_spatial` folder (LIBERO relative paths).
+#
 seed: 42
 device: "cuda"
 
 benchmark:
-  name: "libero_object"
+  name: "libero_spatial"
   task_order_index: 0
-  data_root: "/workspace/data"
+  data_root: "/home/cyhoaoen/dp_forgetting_libero/data"
 
 data:
   obs_horizon: 2
@@ -51,7 +57,7 @@ sdft:
   lambda_sdft: 0.1
   sdft_rollout_interval: 500
   teacher_sync_interval: 500
-  sdft_rollout_horizon: 300
+  sdft_rollout_horizon: 600
   sdft_num_episodes: 2
   sdft_max_states_per_batch: 64
   sdft_ddim_steps: 16
@@ -70,7 +76,7 @@ training:
 
 evaluation:
   num_episodes: 20
-  max_steps_per_episode: 300
+  max_steps_per_episode: 600
   action_execution_horizon: 8
   use_ddim: true
   ddim_steps: 16
@@ -88,11 +94,12 @@ replay:
   mix_ratio: 0.5
 
 logging:
-  project: "baseline"
+  project: "sdft"
   log_interval: 50
-  checkpoint_dir: "/home/cyhoaoen/dp_forgetting_libero/checkpoints/cl_libero_object2"
-  results_dir: "/home/cyhoaoen/dp_forgetting_libero/results/cl_libero_object2"
+  checkpoint_dir: "/home/cyhoaoen/dp_forgetting_libero/checkpoints/cl_libero_spatial"
+  results_dir: "/home/cyhoaoen/dp_forgetting_libero/results/cl_libero_spatial"
   use_wandb: true
   wandb_entity: "ingchicken"
-  wandb_run_name: "cl_libero_object2_eval300"
+  wandb_group: "mse_onlycl"
+  # wandb_run_name: "optional_fixed_name"  # omit → auto mse_onlycl_<timestamp>_<6hex>
   wandb_dir: "/home/cyhoaoen/dp_forgetting_libero/wandb"

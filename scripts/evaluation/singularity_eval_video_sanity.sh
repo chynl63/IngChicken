@@ -12,10 +12,7 @@ set -euo pipefail
 
 : "${CKPT_KK:?Set CKPT_KK (e.g. export CKPT_KK=00)}"
 
-source /opt/conda/etc/profile.d/conda.sh
-conda activate dp
-: "${CONDA_PREFIX:?CONDA_PREFIX empty after conda activate dp}"
-export PATH="${CONDA_PREFIX}/bin:${PATH}"
+source /workspace/scripts/singularity/dp_image_env.sh
 
 # Writable HOME before any pip/python cache (cluster $HOME may be missing in container)
 export LIBERO_CONFIG_PATH=/tmp/libero_cfg
@@ -26,10 +23,6 @@ export HOME="/tmp/dp_eval_home_${SLURM_JOB_ID:-$$}"
 mkdir -p "${HOME}/.cache/torch/hub/checkpoints" "${LIBERO_CONFIG_PATH}" "${NUMBA_CACHE_DIR}"
 export TORCH_HOME="${HOME}/torch_home"
 mkdir -p "${TORCH_HOME}/hub/checkpoints"
-
-# Same interpreter for pip and eval (bare `pip` can target a different env than `python`)
-PY="${CONDA_PREFIX}/bin/python"
-[[ -x "$PY" ]] || { echo "Missing $PY" >&2; exit 1; }
 
 "$PY" -m pip install -q "numpy<2" "h5py<3.12" bddl easydict cloudpickle gym imageio imageio-ffmpeg
 "$PY" -c "import bddl, imageio, sys; print('pip deps ok exe=', sys.executable); print('bddl=', bddl.__file__)"

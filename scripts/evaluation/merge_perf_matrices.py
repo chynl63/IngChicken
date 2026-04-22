@@ -53,7 +53,7 @@ def main():
     parser.add_argument(
         "--config",
         type=str,
-        default="configs/continual_learning_libero_object.yaml",
+        default="configs/continual_learning_libero_spatial.yaml",
     )
     args = parser.parse_args()
 

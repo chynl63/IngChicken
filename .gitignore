@@ -6,10 +6,19 @@
 *.pth
 *.ckpt
 
+# Singularity eval caches (pip --target, tmp, torch home; not source)
+.dp_eval_site/
+.dp_eval_tmp/
+.pip_cache/
+.dp_eval_home/
+.dp_eval_libero_cfg/
+.dp_eval_numba_cache/
+
 # Experiment outputs
 checkpoints/
 logs/
 results/
+wandb/
 
 # Datasets and caches (download separately)
 data/

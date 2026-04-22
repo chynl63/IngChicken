@@ -7,13 +7,15 @@ After each task, evaluates on all previously seen tasks to measure forgetting.
 
 Usage (from repo root, or inside container with cwd /workspace):
   python -m scripts.train_sequential \
-      --config configs/continual_learning_libero_object.yaml
+      --config configs/continual_learning_libero_spatial.yaml
 """
 
 import os
+import copy
 import math
 import json
 import time
+import uuid
 import argparse
 from pathlib import Path
 from datetime import datetime
@@ -43,6 +45,12 @@ from scripts.evaluation import (
 
 from libero.libero.benchmark import get_benchmark
 
+from scripts.training.sdft import (
+    collect_onpolicy_observations,
+    stack_obs_batches,
+    compute_sdft_loss,
+)
+
 
 OFFICIAL_LIBERO_OBJECT_TASKS = [
     "pick_up_the_alphabet_soup_and_place_it_in_the_basket",
@@ -55,6 +63,19 @@ OFFICIAL_LIBERO_OBJECT_TASKS = [
     "pick_up_the_milk_and_place_it_in_the_basket",
     "pick_up_the_chocolate_pudding_and_place_it_in_the_basket",
     "pick_up_the_orange_juice_and_place_it_in_the_basket",
+]
+
+OFFICIAL_LIBERO_SPATIAL_TASKS = [
+    "pick_up_the_black_bowl_between_the_plate_and_the_ramekin_and_place_it_on_the_plate",
+    "pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate",
+    "pick_up_the_black_bowl_in_the_top_drawer_of_the_wooden_cabinet_and_place_it_on_the_plate",
+    "pick_up_the_black_bowl_next_to_the_cookie_box_and_place_it_on_the_plate",
+    "pick_up_the_black_bowl_next_to_the_plate_and_place_it_on_the_plate",
+    "pick_up_the_black_bowl_next_to_the_ramekin_and_place_it_on_the_plate",
+    "pick_up_the_black_bowl_on_the_cookie_box_and_place_it_on_the_plate",
+    "pick_up_the_black_bowl_on_the_ramekin_and_place_it_on_the_plate",
+    "pick_up_the_black_bowl_on_the_stove_and_place_it_on_the_plate",
+    "pick_up_the_black_bowl_on_the_wooden_cabinet_and_place_it_on_the_plate",
 ]
 
 
@@ -73,7 +94,6 @@ def verify_task_names(benchmark, benchmark_name: str):
 
     if benchmark_name == "libero_object":
         official = OFFICIAL_LIBERO_OBJECT_TASKS
-        ordered_official = [official[i] for i in range(len(official))]
 
         all_match = True
         for i, name in enumerate(task_names):
@@ -90,6 +110,24 @@ def verify_task_names(benchmark, benchmark_name: str):
             print("WARNING: Task names do NOT match the official list!")
             print(f"  Expected: {official}")
             print(f"  Got:      {task_names}")
+    elif benchmark_name == "libero_spatial":
+        official = OFFICIAL_LIBERO_SPATIAL_TASKS
+
+        all_match = True
+        for i, name in enumerate(task_names):
+            status = "OK" if name in official else "MISMATCH"
+            if name not in official:
+                all_match = False
+            print(f"  Task {i:2d}: {name}")
+            print(f"          Status: {status}")
+
+        print("-" * 70)
+        if all_match and set(task_names) == set(official):
+            print("VERIFIED: All task names match the official LIBERO-Spatial list.")
+        else:
+            print("WARNING: Task names do NOT match the official list!")
+            print(f"  Expected: {official}")
+            print(f"  Got:      {task_names}")
     else:
         for i, name in enumerate(task_names):
             print(f"  Task {i:2d}: {name}")
@@ -98,7 +136,7 @@ def verify_task_names(benchmark, benchmark_name: str):
     return task_names
 
 
-def verify_data_files(data_root: str, benchmark):
+def verify_data_files(data_root: str, benchmark, benchmark_name: str = ""):
     """Verify all demo HDF5 files exist before starting training."""
     print("Verifying data files...")
     missing = []
@@ -112,10 +150,11 @@ def verify_data_files(data_root: str, benchmark):
             missing.append(demo_path)
 
     if missing:
+        tag = benchmark_name or "LIBERO"
         raise FileNotFoundError(
             f"Missing {len(missing)} demo file(s):\n"
             + "\n".join(f"  - {p}" for p in missing)
-            + "\n\nPlease download the LIBERO-Object dataset first."
+            + f"\n\nPlease download the benchmark demos ({tag}) and set benchmark.data_root correctly."
         )
     print("All data files verified.\n")
 
@@ -131,6 +170,7 @@ def train_on_task(
     device: torch.device,
     global_step_start: int = 0,
     wandb_run=None,
+    benchmark=None,
 ) -> tuple:
     """Train the model on a single task.
 
@@ -141,6 +181,35 @@ def train_on_task(
     train_cfg = cfg["training"]
     cl_cfg = cfg["continual_learning"]
     log_cfg = cfg["logging"]
+    eval_cfg = cfg.get("evaluation", {})
+
+    seed = cfg.get("seed", 42)
+    low_dim_keys = [k for k in data_cfg["obs_keys"] if "image" not in k]
+
+    sdft_cfg = cfg.get("sdft", {})
+    lambda_sdft = float(sdft_cfg.get("lambda_sdft", 0.0))
+    use_sdft = bool(sdft_cfg.get("use_sdft", False)) and lambda_sdft > 0.0
+    sdft_rollout_interval = int(sdft_cfg.get("sdft_rollout_interval", 500))
+    log_sdft_debug = bool(sdft_cfg.get("log_sdft_debug", False))
+    sdft_ddim_steps = int(sdft_cfg.get("sdft_ddim_steps", eval_cfg.get("ddim_steps", 16)))
+
+    if use_sdft and benchmark is None:
+        raise ValueError(
+            "SDFT is enabled (sdft.use_sdft=true and lambda_sdft>0) but "
+            "benchmark was not passed to train_on_task()."
+        )
+
+    teacher = None
+    if use_sdft:
+        teacher = copy.deepcopy(model)
+        teacher.eval()
+        for p in teacher.parameters():
+            p.requires_grad_(False)
+        teacher.to(device)
+        print(
+            f"  [sdft] enabled: lambda={lambda_sdft}, rollout_every={sdft_rollout_interval}, "
+            f"teacher_sync={sdft_cfg.get('teacher_sync_interval', 500)}, ddim_steps={sdft_ddim_steps}"
+        )
 
     epochs = cl_cfg["epochs_per_task"]
 
@@ -200,10 +269,71 @@ def train_on_task(
             leave=False,
         )
         for batch in pbar:
+            obs_batches = None
+            sdft_rollout_states = 0
+
+            if use_sdft and (global_step + 1) % sdft_rollout_interval == 0:
+                roll_seed = int(seed + task_idx * 7919 + global_step)
+                model.eval()
+                with torch.no_grad():
+                    obs_batches, sdft_rollout_states = collect_onpolicy_observations(
+                        model=model,
+                        benchmark=benchmark,
+                        task_idx=task_idx,
+                        num_episodes=int(sdft_cfg.get("sdft_num_episodes", 2)),
+                        max_steps=int(
+                            sdft_cfg.get(
+                                "sdft_rollout_horizon",
+                                eval_cfg.get("max_steps_per_episode", 600),
+                            )
+                        ),
+                        action_execution_horizon=int(
+                            sdft_cfg.get(
+                                "action_execution_horizon",
+                                eval_cfg.get("action_execution_horizon", 8),
+                            )
+                        ),
+                        action_mean=action_mean
+                        if data_cfg.get("normalize_action", True)
+                        else None,
+                        action_std=action_std
+                        if data_cfg.get("normalize_action", True)
+                        else None,
+                        obs_horizon=data_cfg["obs_horizon"],
+                        image_size=tuple(data_cfg.get("image_size", [128, 128])),
+                        use_eye_in_hand=data_cfg.get("use_eye_in_hand", True),
+                        low_dim_keys=low_dim_keys,
+                        device=device,
+                        use_ddim=True,
+                        ddim_steps=sdft_ddim_steps,
+                        max_states=int(sdft_cfg.get("sdft_max_states_per_batch", 64)),
+                        seed=roll_seed,
+                        log_debug=log_sdft_debug,
+                    )
+                model.train()
+
             batch = {k: v.to(device) for k, v in batch.items()}
 
+            loss_sdft = None
             with autocast(enabled=use_amp):
-                loss = model.compute_loss(batch)
+                loss_main = model.compute_loss(batch)
+                if use_sdft and obs_batches and len(obs_batches) > 0:
+                    stacked = stack_obs_batches(obs_batches)
+                    if log_sdft_debug:
+                        for k, v in stacked.items():
+                            print(
+                                f"    [sdft] stacked {k}: shape={tuple(v.shape)} dtype={v.dtype}",
+                                flush=True,
+                            )
+                    loss_sdft = compute_sdft_loss(
+                        student=model,
+                        teacher=teacher,
+                        stacked_batch=stacked,
+                        ddim_steps=sdft_ddim_steps,
+                    )
+                    loss = loss_main + lambda_sdft * loss_sdft
+                else:
+                    loss = loss_main
 
             optimizer.zero_grad()
             scaler.scale(loss).backward()
@@ -219,25 +349,42 @@ def train_on_task(
             scheduler.step()
             ema.update(model)
 
-            loss_val = loss.item()
-            batch_losses.append(loss_val)
             global_step += 1
 
-            pbar.set_postfix(
-                loss=f"{loss_val:.4f}",
-                lr=f"{scheduler.get_last_lr()[0]:.2e}",
-            )
+            if use_sdft and teacher is not None:
+                ts = int(sdft_cfg.get("teacher_sync_interval", 500))
+                if ts > 0 and global_step % ts == 0:
+                    teacher.load_state_dict(model.state_dict())
+
+            loss_val = loss.item()
+            batch_losses.append(loss_main.item())
+
+            postfix = {
+                "loss": f"{loss_val:.4f}",
+                "lr": f"{scheduler.get_last_lr()[0]:.2e}",
+            }
+            if use_sdft and loss_sdft is not None:
+                postfix["main"] = f"{loss_main.item():.4f}"
+                postfix["sdft"] = f"{loss_sdft.item():.4f}"
+            pbar.set_postfix(**postfix)
 
             if use_wandb and global_step % log_cfg.get("log_interval", 50) == 0:
-                wandb_run.log(
-                    {
+                log_payload = {
                     f"task_{task_idx}/loss": loss_val,
+                    f"task_{task_idx}/loss_main": loss_main.item(),
                     f"task_{task_idx}/lr": scheduler.get_last_lr()[0],
                     "global/lr": scheduler.get_last_lr()[0],
                     "global_step": global_step,
-                    },
-                    step=global_step,
-                )
+                }
+                if use_sdft:
+                    log_payload[f"task_{task_idx}/use_sdft"] = True
+                    log_payload[f"task_{task_idx}/lambda_sdft"] = lambda_sdft
+                    if loss_sdft is not None:
+                        log_payload[f"task_{task_idx}/loss_sdft"] = loss_sdft.item()
+                    log_payload[f"task_{task_idx}/sdft_rollout_states"] = float(
+                        sdft_rollout_states
+                    )
+                wandb_run.log(log_payload, step=global_step)
 
         avg_loss = np.mean(batch_losses)
         epoch_losses.append(avg_loss)
@@ -278,8 +425,20 @@ def main(cfg, skip_eval=False):
             }
             if log_cfg.get("wandb_entity"):
                 wandb_kwargs["entity"] = log_cfg["wandb_entity"]
-            if log_cfg.get("wandb_run_name"):
-                wandb_kwargs["name"] = log_cfg["wandb_run_name"]
+            if log_cfg.get("wandb_group"):
+                wandb_kwargs["group"] = log_cfg["wandb_group"]
+
+            run_name = log_cfg.get("wandb_run_name")
+            if not run_name:
+                group_slug = str(log_cfg.get("wandb_group", "run")).replace(" ", "_").replace(
+                    "/", "_"
+                )
+                run_name = (
+                    f"{group_slug}_{datetime.now().strftime('%Y%m%d_%H%M%S')}_"
+                    f"{uuid.uuid4().hex[:6]}"
+                )
+            wandb_kwargs["name"] = run_name
+
             if log_cfg.get("wandb_dir"):
                 wandb_kwargs["dir"] = log_cfg["wandb_dir"]
 
@@ -287,6 +446,7 @@ def main(cfg, skip_eval=False):
             wandb_run = wandb
             print(
                 f"[wandb] enabled: project={wandb_kwargs.get('project')} "
+                f"group={wandb_kwargs.get('group', '')} "
                 f"name={wandb_kwargs.get('name')}"
             )
         except Exception as e:
@@ -301,7 +461,7 @@ def main(cfg, skip_eval=False):
     task_names = verify_task_names(benchmark, benchmark_cfg["name"])
 
     data_root = benchmark_cfg["data_root"]
-    verify_data_files(data_root, benchmark)
+    verify_data_files(data_root, benchmark, benchmark_name=benchmark_cfg["name"])
 
     # ── 2. Compute global action normalization stats ──
     print("Computing global action normalization stats...")
@@ -349,6 +509,7 @@ def main(cfg, skip_eval=False):
             device=device,
             global_step_start=global_step,
             wandb_run=wandb_run,
+            benchmark=benchmark,
         )
 
         train_time = time.time() - t_start
@@ -543,13 +704,16 @@ def _save_intermediate(perf_matrix, task_names, training_log, cfg, results_dir, 
 
 
 if __name__ == "__main__":
+    _repo_root = Path(__file__).resolve().parent.parent
+    _default_train_config = _repo_root / "configs" / "continual_learning_libero_spatial.yaml"
+
     parser = argparse.ArgumentParser(
         description="Sequential Continual Learning for Diffusion Policy on LIBERO"
     )
     parser.add_argument(
         "--config",
         type=str,
-        default="/workspace/configs/continual_learning_libero_object.yaml",
+        default=str(_default_train_config),
     )
     parser.add_argument(
         "--skip-eval",
