@@ -1,0 +1,1587 @@
+/home/kyn7666/anaconda3/envs/lerobot/lib/python3.12/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/kyn7666/anaconda3/envs/lerobot/lib/python3.12/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet18_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet18_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/kyn7666/anaconda3/envs/lerobot/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Computing global action normalization stats...
+Global action stats (from 10 tasks, 74507 steps):
+  mean = [ 0.0692163   0.13333812 -0.04646971  0.00118347  0.00695298 -0.01511651
+  0.06516166]
+  std  = [0.2692731  0.4363849  0.44584423 0.02424685 0.04955153 0.04261696
+ 0.99787474]
+
+Found 10 checkpoint(s) in /home/kyn7666/cl_diffusion_libero-object/checkpoints/cl_libero_object
+  after_task_00.pt
+  after_task_01.pt
+  after_task_02.pt
+  after_task_03.pt
+  after_task_04.pt
+  after_task_05.pt
+  after_task_06.pt
+  after_task_07.pt
+  after_task_08.pt
+  after_task_09.pt
+
+======================================================================
+Evaluating checkpoint: after_task_00.pt (trained through task 0)
+  Task: pick_up_the_alphabet_soup_and_place_it_in_the_basket
+======================================================================
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/kyn7666/.cache/libero/assets
+    Episode 1/20: SUCCESS (steps=144) | Running SR: 1/1 = 1.00
+    Episode 2/20: SUCCESS (steps=148) | Running SR: 2/2 = 1.00
+    Episode 3/20: SUCCESS (steps=159) | Running SR: 3/3 = 1.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 3/4 = 0.75
+    Episode 5/20: SUCCESS (steps=152) | Running SR: 4/5 = 0.80
+    Episode 6/20: SUCCESS (steps=156) | Running SR: 5/6 = 0.83
+    Episode 7/20: SUCCESS (steps=171) | Running SR: 6/7 = 0.86
+    Episode 8/20: SUCCESS (steps=148) | Running SR: 7/8 = 0.88
+    Episode 9/20: SUCCESS (steps=140) | Running SR: 8/9 = 0.89
+    Episode 10/20: SUCCESS (steps=148) | Running SR: 9/10 = 0.90
+    Episode 11/20: FAIL (steps=600) | Running SR: 9/11 = 0.82
+    Episode 12/20: SUCCESS (steps=147) | Running SR: 10/12 = 0.83
+    Episode 13/20: SUCCESS (steps=156) | Running SR: 11/13 = 0.85
+    Episode 14/20: SUCCESS (steps=153) | Running SR: 12/14 = 0.86
+    Episode 15/20: SUCCESS (steps=138) | Running SR: 13/15 = 0.87
+    Episode 16/20: SUCCESS (steps=148) | Running SR: 14/16 = 0.88
+    Episode 17/20: SUCCESS (steps=141) | Running SR: 15/17 = 0.88
+    Episode 18/20: FAIL (steps=600) | Running SR: 15/18 = 0.83
+    Episode 19/20: FAIL (steps=600) | Running SR: 15/19 = 0.79
+    Episode 20/20: FAIL (steps=600) | Running SR: 15/20 = 0.75
+/home/kyn7666/anaconda3/envs/lerobot/lib/python3.12/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/kyn7666/anaconda3/envs/lerobot/lib/python3.12/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet18_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet18_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+  Task 0 [pick_up_the_alphabet_soup_and_place_it_in_the]: SR=0.75 (15/20) | 570s
+
+  --- After task 0 ---
+  Avg SR: 0.7500 | NBT: 0.0000
+
+======================================================================
+Evaluating checkpoint: after_task_01.pt (trained through task 1)
+  Task: pick_up_the_cream_cheese_and_place_it_in_the_basket
+======================================================================
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 0 [pick_up_the_alphabet_soup_and_place_it_in_the]: SR=0.00 (0/20) | 1224s
+    Episode 1/20: SUCCESS (steps=146) | Running SR: 1/1 = 1.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 1/2 = 0.50
+    Episode 3/20: FAIL (steps=600) | Running SR: 1/3 = 0.33
+    Episode 4/20: SUCCESS (steps=192) | Running SR: 2/4 = 0.50
+    Episode 5/20: SUCCESS (steps=149) | Running SR: 3/5 = 0.60
+    Episode 6/20: SUCCESS (steps=401) | Running SR: 4/6 = 0.67
+    Episode 7/20: SUCCESS (steps=146) | Running SR: 5/7 = 0.71
+    Episode 8/20: SUCCESS (steps=192) | Running SR: 6/8 = 0.75
+    Episode 9/20: SUCCESS (steps=173) | Running SR: 7/9 = 0.78
+    Episode 10/20: SUCCESS (steps=135) | Running SR: 8/10 = 0.80
+    Episode 11/20: SUCCESS (steps=191) | Running SR: 9/11 = 0.82
+    Episode 12/20: FAIL (steps=600) | Running SR: 9/12 = 0.75
+    Episode 13/20: SUCCESS (steps=137) | Running SR: 10/13 = 0.77
+    Episode 14/20: SUCCESS (steps=190) | Running SR: 11/14 = 0.79
+    Episode 15/20: FAIL (steps=600) | Running SR: 11/15 = 0.73
+    Episode 16/20: SUCCESS (steps=143) | Running SR: 12/16 = 0.75
+    Episode 17/20: SUCCESS (steps=177) | Running SR: 13/17 = 0.76
+    Episode 18/20: FAIL (steps=600) | Running SR: 13/18 = 0.72
+    Episode 19/20: SUCCESS (steps=184) | Running SR: 14/19 = 0.74
+    Episode 20/20: FAIL (steps=600) | Running SR: 14/20 = 0.70
+  Task 1 [pick_up_the_cream_cheese_and_place_it_in_the_]: SR=0.70 (14/20) | 636s
+
+  --- After task 1 ---
+  Avg SR: 0.3500 | NBT: 0.7500
+
+======================================================================
+Evaluating checkpoint: after_task_02.pt (trained through task 2)
+  Task: pick_up_the_salad_dressing_and_place_it_in_the_basket
+======================================================================
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 0 [pick_up_the_alphabet_soup_and_place_it_in_the]: SR=0.00 (0/20) | 1287s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: SUCCESS (steps=159) | Running SR: 1/3 = 0.33
+    Episode 4/20: FAIL (steps=600) | Running SR: 1/4 = 0.25
+    Episode 5/20: FAIL (steps=600) | Running SR: 1/5 = 0.20
+    Episode 6/20: SUCCESS (steps=273) | Running SR: 2/6 = 0.33
+    Episode 7/20: FAIL (steps=600) | Running SR: 2/7 = 0.29
+    Episode 8/20: FAIL (steps=600) | Running SR: 2/8 = 0.25
+    Episode 9/20: SUCCESS (steps=239) | Running SR: 3/9 = 0.33
+    Episode 10/20: SUCCESS (steps=279) | Running SR: 4/10 = 0.40
+    Episode 11/20: FAIL (steps=600) | Running SR: 4/11 = 0.36
+    Episode 12/20: FAIL (steps=600) | Running SR: 4/12 = 0.33
+    Episode 13/20: FAIL (steps=600) | Running SR: 4/13 = 0.31
+    Episode 14/20: SUCCESS (steps=159) | Running SR: 5/14 = 0.36
+    Episode 15/20: SUCCESS (steps=163) | Running SR: 6/15 = 0.40
+    Episode 16/20: SUCCESS (steps=156) | Running SR: 7/16 = 0.44
+    Episode 17/20: SUCCESS (steps=158) | Running SR: 8/17 = 0.47
+    Episode 18/20: SUCCESS (steps=165) | Running SR: 9/18 = 0.50
+    Episode 19/20: SUCCESS (steps=205) | Running SR: 10/19 = 0.53
+    Episode 20/20: SUCCESS (steps=361) | Running SR: 11/20 = 0.55
+  Task 1 [pick_up_the_cream_cheese_and_place_it_in_the_]: SR=0.55 (11/20) | 805s
+    Episode 1/20: SUCCESS (steps=127) | Running SR: 1/1 = 1.00
+    Episode 2/20: SUCCESS (steps=133) | Running SR: 2/2 = 1.00
+    Episode 3/20: SUCCESS (steps=122) | Running SR: 3/3 = 1.00
+    Episode 4/20: SUCCESS (steps=124) | Running SR: 4/4 = 1.00
+    Episode 5/20: SUCCESS (steps=131) | Running SR: 5/5 = 1.00
+    Episode 6/20: SUCCESS (steps=121) | Running SR: 6/6 = 1.00
+    Episode 7/20: SUCCESS (steps=118) | Running SR: 7/7 = 1.00
+    Episode 8/20: SUCCESS (steps=127) | Running SR: 8/8 = 1.00
+    Episode 9/20: SUCCESS (steps=127) | Running SR: 9/9 = 1.00
+    Episode 10/20: SUCCESS (steps=123) | Running SR: 10/10 = 1.00
+    Episode 11/20: SUCCESS (steps=123) | Running SR: 11/11 = 1.00
+    Episode 12/20: SUCCESS (steps=118) | Running SR: 12/12 = 1.00
+    Episode 13/20: SUCCESS (steps=124) | Running SR: 13/13 = 1.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 13/14 = 0.93
+    Episode 15/20: SUCCESS (steps=122) | Running SR: 14/15 = 0.93
+    Episode 16/20: SUCCESS (steps=122) | Running SR: 15/16 = 0.94
+    Episode 17/20: SUCCESS (steps=123) | Running SR: 16/17 = 0.94
+    Episode 18/20: FAIL (steps=600) | Running SR: 16/18 = 0.89
+    Episode 19/20: SUCCESS (steps=124) | Running SR: 17/19 = 0.89
+    Episode 20/20: SUCCESS (steps=129) | Running SR: 18/20 = 0.90
+  Task 2 [pick_up_the_salad_dressing_and_place_it_in_th]: SR=0.90 (18/20) | 382s
+
+  --- After task 2 ---
+  Avg SR: 0.4833 | NBT: 0.4500
+
+======================================================================
+Evaluating checkpoint: after_task_03.pt (trained through task 3)
+  Task: pick_up_the_bbq_sauce_and_place_it_in_the_basket
+======================================================================
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 0 [pick_up_the_alphabet_soup_and_place_it_in_the]: SR=0.00 (0/20) | 1298s
+    Episode 1/20: SUCCESS (steps=222) | Running SR: 1/1 = 1.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 1/2 = 0.50
+    Episode 3/20: SUCCESS (steps=154) | Running SR: 2/3 = 0.67
+    Episode 4/20: SUCCESS (steps=213) | Running SR: 3/4 = 0.75
+    Episode 5/20: SUCCESS (steps=302) | Running SR: 4/5 = 0.80
+    Episode 6/20: SUCCESS (steps=215) | Running SR: 5/6 = 0.83
+    Episode 7/20: SUCCESS (steps=157) | Running SR: 6/7 = 0.86
+    Episode 8/20: SUCCESS (steps=154) | Running SR: 7/8 = 0.88
+    Episode 9/20: SUCCESS (steps=161) | Running SR: 8/9 = 0.89
+    Episode 10/20: SUCCESS (steps=212) | Running SR: 9/10 = 0.90
+    Episode 11/20: SUCCESS (steps=223) | Running SR: 10/11 = 0.91
+    Episode 12/20: FAIL (steps=600) | Running SR: 10/12 = 0.83
+    Episode 13/20: SUCCESS (steps=162) | Running SR: 11/13 = 0.85
+    Episode 14/20: SUCCESS (steps=160) | Running SR: 12/14 = 0.86
+    Episode 15/20: SUCCESS (steps=161) | Running SR: 13/15 = 0.87
+    Episode 16/20: SUCCESS (steps=157) | Running SR: 14/16 = 0.88
+    Episode 17/20: SUCCESS (steps=220) | Running SR: 15/17 = 0.88
+    Episode 18/20: SUCCESS (steps=276) | Running SR: 16/18 = 0.89
+    Episode 19/20: SUCCESS (steps=162) | Running SR: 17/19 = 0.89
+    Episode 20/20: SUCCESS (steps=166) | Running SR: 18/20 = 0.90
+  Task 1 [pick_up_the_cream_cheese_and_place_it_in_the_]: SR=0.90 (18/20) | 494s
+    Episode 1/20: SUCCESS (steps=147) | Running SR: 1/1 = 1.00
+    Episode 2/20: SUCCESS (steps=128) | Running SR: 2/2 = 1.00
+    Episode 3/20: SUCCESS (steps=123) | Running SR: 3/3 = 1.00
+    Episode 4/20: SUCCESS (steps=122) | Running SR: 4/4 = 1.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 4/5 = 0.80
+    Episode 6/20: SUCCESS (steps=120) | Running SR: 5/6 = 0.83
+    Episode 7/20: SUCCESS (steps=125) | Running SR: 6/7 = 0.86
+    Episode 8/20: SUCCESS (steps=122) | Running SR: 7/8 = 0.88
+    Episode 9/20: SUCCESS (steps=124) | Running SR: 8/9 = 0.89
+    Episode 10/20: SUCCESS (steps=129) | Running SR: 9/10 = 0.90
+    Episode 11/20: SUCCESS (steps=151) | Running SR: 10/11 = 0.91
+    Episode 12/20: SUCCESS (steps=123) | Running SR: 11/12 = 0.92
+    Episode 13/20: SUCCESS (steps=124) | Running SR: 12/13 = 0.92
+    Episode 14/20: SUCCESS (steps=127) | Running SR: 13/14 = 0.93
+    Episode 15/20: SUCCESS (steps=124) | Running SR: 14/15 = 0.93
+    Episode 16/20: SUCCESS (steps=122) | Running SR: 15/16 = 0.94
+    Episode 17/20: SUCCESS (steps=123) | Running SR: 16/17 = 0.94
+    Episode 18/20: SUCCESS (steps=130) | Running SR: 17/18 = 0.94
+    Episode 19/20: SUCCESS (steps=129) | Running SR: 18/19 = 0.95
+    Episode 20/20: SUCCESS (steps=147) | Running SR: 19/20 = 0.95
+  Task 2 [pick_up_the_salad_dressing_and_place_it_in_th]: SR=0.95 (19/20) | 345s
+    Episode 1/20: SUCCESS (steps=136) | Running SR: 1/1 = 1.00
+    Episode 2/20: SUCCESS (steps=214) | Running SR: 2/2 = 1.00
+    Episode 3/20: SUCCESS (steps=136) | Running SR: 3/3 = 1.00
+    Episode 4/20: SUCCESS (steps=142) | Running SR: 4/4 = 1.00
+    Episode 5/20: SUCCESS (steps=149) | Running SR: 5/5 = 1.00
+    Episode 6/20: SUCCESS (steps=135) | Running SR: 6/6 = 1.00
+    Episode 7/20: SUCCESS (steps=138) | Running SR: 7/7 = 1.00
+    Episode 8/20: SUCCESS (steps=134) | Running SR: 8/8 = 1.00
+    Episode 9/20: SUCCESS (steps=140) | Running SR: 9/9 = 1.00
+    Episode 10/20: SUCCESS (steps=145) | Running SR: 10/10 = 1.00
+    Episode 11/20: SUCCESS (steps=138) | Running SR: 11/11 = 1.00
+    Episode 12/20: SUCCESS (steps=137) | Running SR: 12/12 = 1.00
+    Episode 13/20: SUCCESS (steps=142) | Running SR: 13/13 = 1.00
+    Episode 14/20: SUCCESS (steps=136) | Running SR: 14/14 = 1.00
+    Episode 15/20: SUCCESS (steps=156) | Running SR: 15/15 = 1.00
+    Episode 16/20: SUCCESS (steps=194) | Running SR: 16/16 = 1.00
+    Episode 17/20: SUCCESS (steps=142) | Running SR: 17/17 = 1.00
+    Episode 18/20: SUCCESS (steps=141) | Running SR: 18/18 = 1.00
+    Episode 19/20: SUCCESS (steps=132) | Running SR: 19/19 = 1.00
+    Episode 20/20: SUCCESS (steps=134) | Running SR: 20/20 = 1.00
+  Task 3 [pick_up_the_bbq_sauce_and_place_it_in_the_bas]: SR=1.00 (20/20) | 322s
+
+  --- After task 3 ---
+  Avg SR: 0.7125 | NBT: 0.2500
+
+======================================================================
+Evaluating checkpoint: after_task_04.pt (trained through task 4)
+  Task: pick_up_the_ketchup_and_place_it_in_the_basket
+======================================================================
+    Episode 1/20: SUCCESS (steps=154) | Running SR: 1/1 = 1.00
+    Episode 2/20: SUCCESS (steps=160) | Running SR: 2/2 = 1.00
+    Episode 3/20: SUCCESS (steps=155) | Running SR: 3/3 = 1.00
+    Episode 4/20: SUCCESS (steps=177) | Running SR: 4/4 = 1.00
+    Episode 5/20: SUCCESS (steps=171) | Running SR: 5/5 = 1.00
+    Episode 6/20: SUCCESS (steps=143) | Running SR: 6/6 = 1.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 6/7 = 0.86
+    Episode 8/20: SUCCESS (steps=161) | Running SR: 7/8 = 0.88
+    Episode 9/20: SUCCESS (steps=155) | Running SR: 8/9 = 0.89
+    Episode 10/20: SUCCESS (steps=161) | Running SR: 9/10 = 0.90
+    Episode 11/20: SUCCESS (steps=167) | Running SR: 10/11 = 0.91
+    Episode 12/20: SUCCESS (steps=167) | Running SR: 11/12 = 0.92
+    Episode 13/20: SUCCESS (steps=160) | Running SR: 12/13 = 0.92
+    Episode 14/20: SUCCESS (steps=158) | Running SR: 13/14 = 0.93
+    Episode 15/20: SUCCESS (steps=159) | Running SR: 14/15 = 0.93
+    Episode 16/20: SUCCESS (steps=166) | Running SR: 15/16 = 0.94
+    Episode 17/20: SUCCESS (steps=165) | Running SR: 16/17 = 0.94
+    Episode 18/20: FAIL (steps=600) | Running SR: 16/18 = 0.89
+    Episode 19/20: FAIL (steps=600) | Running SR: 16/19 = 0.84
+    Episode 20/20: SUCCESS (steps=176) | Running SR: 17/20 = 0.85
+  Task 0 [pick_up_the_alphabet_soup_and_place_it_in_the]: SR=0.85 (17/20) | 490s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 1 [pick_up_the_cream_cheese_and_place_it_in_the_]: SR=0.00 (0/20) | 1266s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 2 [pick_up_the_salad_dressing_and_place_it_in_th]: SR=0.00 (0/20) | 1273s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 3 [pick_up_the_bbq_sauce_and_place_it_in_the_bas]: SR=0.00 (0/20) | 1236s
+    Episode 1/20: SUCCESS (steps=168) | Running SR: 1/1 = 1.00
+    Episode 2/20: SUCCESS (steps=147) | Running SR: 2/2 = 1.00
+    Episode 3/20: SUCCESS (steps=144) | Running SR: 3/3 = 1.00
+    Episode 4/20: SUCCESS (steps=168) | Running SR: 4/4 = 1.00
+    Episode 5/20: SUCCESS (steps=157) | Running SR: 5/5 = 1.00
+    Episode 6/20: SUCCESS (steps=143) | Running SR: 6/6 = 1.00
+    Episode 7/20: SUCCESS (steps=143) | Running SR: 7/7 = 1.00
+    Episode 8/20: SUCCESS (steps=155) | Running SR: 8/8 = 1.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 8/9 = 0.89
+    Episode 10/20: SUCCESS (steps=158) | Running SR: 9/10 = 0.90
+    Episode 11/20: FAIL (steps=600) | Running SR: 9/11 = 0.82
+    Episode 12/20: SUCCESS (steps=150) | Running SR: 10/12 = 0.83
+    Episode 13/20: SUCCESS (steps=142) | Running SR: 11/13 = 0.85
+    Episode 14/20: SUCCESS (steps=149) | Running SR: 12/14 = 0.86
+    Episode 15/20: SUCCESS (steps=142) | Running SR: 13/15 = 0.87
+    Episode 16/20: SUCCESS (steps=151) | Running SR: 14/16 = 0.88
+    Episode 17/20: SUCCESS (steps=152) | Running SR: 15/17 = 0.88
+    Episode 18/20: FAIL (steps=600) | Running SR: 15/18 = 0.83
+    Episode 19/20: SUCCESS (steps=160) | Running SR: 16/19 = 0.84
+    Episode 20/20: SUCCESS (steps=150) | Running SR: 17/20 = 0.85
+  Task 4 [pick_up_the_ketchup_and_place_it_in_the_baske]: SR=0.85 (17/20) | 463s
+
+  --- After task 4 ---
+  Avg SR: 0.3400 | NBT: 0.7125
+
+======================================================================
+Evaluating checkpoint: after_task_05.pt (trained through task 5)
+  Task: pick_up_the_tomato_sauce_and_place_it_in_the_basket
+======================================================================
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 0 [pick_up_the_alphabet_soup_and_place_it_in_the]: SR=0.00 (0/20) | 1236s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: SUCCESS (steps=298) | Running SR: 1/4 = 0.25
+    Episode 5/20: FAIL (steps=600) | Running SR: 1/5 = 0.20
+    Episode 6/20: FAIL (steps=600) | Running SR: 1/6 = 0.17
+    Episode 7/20: FAIL (steps=600) | Running SR: 1/7 = 0.14
+    Episode 8/20: FAIL (steps=600) | Running SR: 1/8 = 0.12
+    Episode 9/20: SUCCESS (steps=199) | Running SR: 2/9 = 0.22
+    Episode 10/20: FAIL (steps=600) | Running SR: 2/10 = 0.20
+    Episode 11/20: FAIL (steps=600) | Running SR: 2/11 = 0.18
+    Episode 12/20: FAIL (steps=600) | Running SR: 2/12 = 0.17
+    Episode 13/20: FAIL (steps=600) | Running SR: 2/13 = 0.15
+    Episode 14/20: SUCCESS (steps=205) | Running SR: 3/14 = 0.21
+    Episode 15/20: FAIL (steps=600) | Running SR: 3/15 = 0.20
+    Episode 16/20: FAIL (steps=600) | Running SR: 3/16 = 0.19
+    Episode 17/20: FAIL (steps=600) | Running SR: 3/17 = 0.18
+    Episode 18/20: FAIL (steps=600) | Running SR: 3/18 = 0.17
+    Episode 19/20: FAIL (steps=600) | Running SR: 3/19 = 0.16
+    Episode 20/20: FAIL (steps=600) | Running SR: 3/20 = 0.15
+  Task 1 [pick_up_the_cream_cheese_and_place_it_in_the_]: SR=0.15 (3/20) | 1098s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: SUCCESS (steps=169) | Running SR: 1/2 = 0.50
+    Episode 3/20: FAIL (steps=600) | Running SR: 1/3 = 0.33
+    Episode 4/20: SUCCESS (steps=536) | Running SR: 2/4 = 0.50
+    Episode 5/20: SUCCESS (steps=153) | Running SR: 3/5 = 0.60
+    Episode 6/20: FAIL (steps=600) | Running SR: 3/6 = 0.50
+    Episode 7/20: FAIL (steps=600) | Running SR: 3/7 = 0.43
+    Episode 8/20: FAIL (steps=600) | Running SR: 3/8 = 0.38
+    Episode 9/20: FAIL (steps=600) | Running SR: 3/9 = 0.33
+    Episode 10/20: FAIL (steps=600) | Running SR: 3/10 = 0.30
+    Episode 11/20: FAIL (steps=600) | Running SR: 3/11 = 0.27
+    Episode 12/20: FAIL (steps=600) | Running SR: 3/12 = 0.25
+    Episode 13/20: FAIL (steps=600) | Running SR: 3/13 = 0.23
+    Episode 14/20: FAIL (steps=600) | Running SR: 3/14 = 0.21
+    Episode 15/20: SUCCESS (steps=245) | Running SR: 4/15 = 0.27
+    Episode 16/20: FAIL (steps=600) | Running SR: 4/16 = 0.25
+    Episode 17/20: FAIL (steps=600) | Running SR: 4/17 = 0.24
+    Episode 18/20: FAIL (steps=600) | Running SR: 4/18 = 0.22
+    Episode 19/20: FAIL (steps=600) | Running SR: 4/19 = 0.21
+    Episode 20/20: SUCCESS (steps=148) | Running SR: 5/20 = 0.25
+  Task 2 [pick_up_the_salad_dressing_and_place_it_in_th]: SR=0.25 (5/20) | 1054s
+    Episode 1/20: SUCCESS (steps=139) | Running SR: 1/1 = 1.00
+    Episode 2/20: SUCCESS (steps=127) | Running SR: 2/2 = 1.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 2/3 = 0.67
+    Episode 4/20: FAIL (steps=600) | Running SR: 2/4 = 0.50
+    Episode 5/20: FAIL (steps=600) | Running SR: 2/5 = 0.40
+    Episode 6/20: FAIL (steps=600) | Running SR: 2/6 = 0.33
+    Episode 7/20: FAIL (steps=600) | Running SR: 2/7 = 0.29
+    Episode 8/20: SUCCESS (steps=173) | Running SR: 3/8 = 0.38
+    Episode 9/20: FAIL (steps=600) | Running SR: 3/9 = 0.33
+    Episode 10/20: FAIL (steps=600) | Running SR: 3/10 = 0.30
+    Episode 11/20: FAIL (steps=600) | Running SR: 3/11 = 0.27
+    Episode 12/20: FAIL (steps=600) | Running SR: 3/12 = 0.25
+    Episode 13/20: FAIL (steps=600) | Running SR: 3/13 = 0.23
+    Episode 14/20: FAIL (steps=600) | Running SR: 3/14 = 0.21
+    Episode 15/20: FAIL (steps=600) | Running SR: 3/15 = 0.20
+    Episode 16/20: SUCCESS (steps=146) | Running SR: 4/16 = 0.25
+    Episode 17/20: FAIL (steps=600) | Running SR: 4/17 = 0.24
+    Episode 18/20: FAIL (steps=600) | Running SR: 4/18 = 0.22
+    Episode 19/20: SUCCESS (steps=206) | Running SR: 5/19 = 0.26
+    Episode 20/20: FAIL (steps=600) | Running SR: 5/20 = 0.25
+  Task 3 [pick_up_the_bbq_sauce_and_place_it_in_the_bas]: SR=0.25 (5/20) | 981s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 4 [pick_up_the_ketchup_and_place_it_in_the_baske]: SR=0.00 (0/20) | 1189s
+    Episode 1/20: SUCCESS (steps=136) | Running SR: 1/1 = 1.00
+    Episode 2/20: SUCCESS (steps=125) | Running SR: 2/2 = 1.00
+    Episode 3/20: SUCCESS (steps=134) | Running SR: 3/3 = 1.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 3/4 = 0.75
+    Episode 5/20: SUCCESS (steps=139) | Running SR: 4/5 = 0.80
+    Episode 6/20: SUCCESS (steps=146) | Running SR: 5/6 = 0.83
+    Episode 7/20: SUCCESS (steps=129) | Running SR: 6/7 = 0.86
+    Episode 8/20: SUCCESS (steps=137) | Running SR: 7/8 = 0.88
+    Episode 9/20: SUCCESS (steps=126) | Running SR: 8/9 = 0.89
+    Episode 10/20: SUCCESS (steps=136) | Running SR: 9/10 = 0.90
+    Episode 11/20: SUCCESS (steps=144) | Running SR: 10/11 = 0.91
+    Episode 12/20: SUCCESS (steps=137) | Running SR: 11/12 = 0.92
+    Episode 13/20: SUCCESS (steps=139) | Running SR: 12/13 = 0.92
+    Episode 14/20: SUCCESS (steps=128) | Running SR: 13/14 = 0.93
+    Episode 15/20: FAIL (steps=600) | Running SR: 13/15 = 0.87
+    Episode 16/20: SUCCESS (steps=133) | Running SR: 14/16 = 0.88
+    Episode 17/20: SUCCESS (steps=135) | Running SR: 15/17 = 0.88
+    Episode 18/20: SUCCESS (steps=124) | Running SR: 16/18 = 0.89
+    Episode 19/20: SUCCESS (steps=144) | Running SR: 17/19 = 0.89
+    Episode 20/20: SUCCESS (steps=129) | Running SR: 18/20 = 0.90
+  Task 5 [pick_up_the_tomato_sauce_and_place_it_in_the_]: SR=0.90 (18/20) | 402s
+
+  --- After task 5 ---
+  Avg SR: 0.2583 | NBT: 0.7800
+
+======================================================================
+Evaluating checkpoint: after_task_06.pt (trained through task 6)
+  Task: pick_up_the_butter_and_place_it_in_the_basket
+======================================================================
+    Episode 1/20: SUCCESS (steps=145) | Running SR: 1/1 = 1.00
+    Episode 2/20: SUCCESS (steps=422) | Running SR: 2/2 = 1.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 2/3 = 0.67
+    Episode 4/20: FAIL (steps=600) | Running SR: 2/4 = 0.50
+    Episode 5/20: FAIL (steps=600) | Running SR: 2/5 = 0.40
+    Episode 6/20: SUCCESS (steps=150) | Running SR: 3/6 = 0.50
+    Episode 7/20: FAIL (steps=600) | Running SR: 3/7 = 0.43
+    Episode 8/20: SUCCESS (steps=147) | Running SR: 4/8 = 0.50
+    Episode 9/20: SUCCESS (steps=153) | Running SR: 5/9 = 0.56
+    Episode 10/20: SUCCESS (steps=160) | Running SR: 6/10 = 0.60
+    Episode 11/20: SUCCESS (steps=161) | Running SR: 7/11 = 0.64
+    Episode 12/20: SUCCESS (steps=150) | Running SR: 8/12 = 0.67
+    Episode 13/20: SUCCESS (steps=142) | Running SR: 9/13 = 0.69
+    Episode 14/20: SUCCESS (steps=154) | Running SR: 10/14 = 0.71
+    Episode 15/20: SUCCESS (steps=155) | Running SR: 11/15 = 0.73
+    Episode 16/20: SUCCESS (steps=154) | Running SR: 12/16 = 0.75
+    Episode 17/20: SUCCESS (steps=149) | Running SR: 13/17 = 0.76
+    Episode 18/20: FAIL (steps=600) | Running SR: 13/18 = 0.72
+    Episode 19/20: FAIL (steps=600) | Running SR: 13/19 = 0.68
+    Episode 20/20: FAIL (steps=600) | Running SR: 13/20 = 0.65
+  Task 0 [pick_up_the_alphabet_soup_and_place_it_in_the]: SR=0.65 (13/20) | 680s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 1 [pick_up_the_cream_cheese_and_place_it_in_the_]: SR=0.00 (0/20) | 1231s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 2 [pick_up_the_salad_dressing_and_place_it_in_th]: SR=0.00 (0/20) | 1246s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 3 [pick_up_the_bbq_sauce_and_place_it_in_the_bas]: SR=0.00 (0/20) | 1208s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: SUCCESS (steps=156) | Running SR: 1/6 = 0.17
+    Episode 7/20: FAIL (steps=600) | Running SR: 1/7 = 0.14
+    Episode 8/20: FAIL (steps=600) | Running SR: 1/8 = 0.12
+    Episode 9/20: FAIL (steps=600) | Running SR: 1/9 = 0.11
+    Episode 10/20: FAIL (steps=600) | Running SR: 1/10 = 0.10
+    Episode 11/20: FAIL (steps=600) | Running SR: 1/11 = 0.09
+    Episode 12/20: FAIL (steps=600) | Running SR: 1/12 = 0.08
+    Episode 13/20: FAIL (steps=600) | Running SR: 1/13 = 0.08
+    Episode 14/20: SUCCESS (steps=230) | Running SR: 2/14 = 0.14
+    Episode 15/20: FAIL (steps=600) | Running SR: 2/15 = 0.13
+    Episode 16/20: FAIL (steps=600) | Running SR: 2/16 = 0.12
+    Episode 17/20: FAIL (steps=600) | Running SR: 2/17 = 0.12
+    Episode 18/20: FAIL (steps=600) | Running SR: 2/18 = 0.11
+    Episode 19/20: FAIL (steps=600) | Running SR: 2/19 = 0.11
+    Episode 20/20: FAIL (steps=600) | Running SR: 2/20 = 0.10
+  Task 4 [pick_up_the_ketchup_and_place_it_in_the_baske]: SR=0.10 (2/20) | 1125s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 5 [pick_up_the_tomato_sauce_and_place_it_in_the_]: SR=0.00 (0/20) | 1221s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: SUCCESS (steps=157) | Running SR: 1/3 = 0.33
+    Episode 4/20: FAIL (steps=600) | Running SR: 1/4 = 0.25
+    Episode 5/20: FAIL (steps=600) | Running SR: 1/5 = 0.20
+    Episode 6/20: SUCCESS (steps=157) | Running SR: 2/6 = 0.33
+    Episode 7/20: FAIL (steps=600) | Running SR: 2/7 = 0.29
+    Episode 8/20: FAIL (steps=600) | Running SR: 2/8 = 0.25
+    Episode 9/20: FAIL (steps=600) | Running SR: 2/9 = 0.22
+    Episode 10/20: FAIL (steps=600) | Running SR: 2/10 = 0.20
+    Episode 11/20: FAIL (steps=600) | Running SR: 2/11 = 0.18
+    Episode 12/20: FAIL (steps=600) | Running SR: 2/12 = 0.17
+    Episode 13/20: FAIL (steps=600) | Running SR: 2/13 = 0.15
+    Episode 14/20: SUCCESS (steps=152) | Running SR: 3/14 = 0.21
+    Episode 15/20: FAIL (steps=600) | Running SR: 3/15 = 0.20
+    Episode 16/20: FAIL (steps=600) | Running SR: 3/16 = 0.19
+    Episode 17/20: FAIL (steps=600) | Running SR: 3/17 = 0.18
+    Episode 18/20: SUCCESS (steps=288) | Running SR: 4/18 = 0.22
+    Episode 19/20: FAIL (steps=600) | Running SR: 4/19 = 0.21
+    Episode 20/20: FAIL (steps=600) | Running SR: 4/20 = 0.20
+  Task 6 [pick_up_the_butter_and_place_it_in_the_basket]: SR=0.20 (4/20) | 1077s
+
+  --- After task 6 ---
+  Avg SR: 0.1357 | NBT: 0.7833
+
+======================================================================
+Evaluating checkpoint: after_task_07.pt (trained through task 7)
+  Task: pick_up_the_milk_and_place_it_in_the_basket
+======================================================================
+    Episode 1/20: SUCCESS (steps=154) | Running SR: 1/1 = 1.00
+    Episode 2/20: SUCCESS (steps=164) | Running SR: 2/2 = 1.00
+    Episode 3/20: SUCCESS (steps=176) | Running SR: 3/3 = 1.00
+    Episode 4/20: SUCCESS (steps=174) | Running SR: 4/4 = 1.00
+    Episode 5/20: SUCCESS (steps=153) | Running SR: 5/5 = 1.00
+    Episode 6/20: SUCCESS (steps=150) | Running SR: 6/6 = 1.00
+    Episode 7/20: SUCCESS (steps=168) | Running SR: 7/7 = 1.00
+    Episode 8/20: SUCCESS (steps=153) | Running SR: 8/8 = 1.00
+    Episode 9/20: SUCCESS (steps=149) | Running SR: 9/9 = 1.00
+    Episode 10/20: SUCCESS (steps=159) | Running SR: 10/10 = 1.00
+    Episode 11/20: SUCCESS (steps=169) | Running SR: 11/11 = 1.00
+    Episode 12/20: SUCCESS (steps=152) | Running SR: 12/12 = 1.00
+    Episode 13/20: SUCCESS (steps=156) | Running SR: 13/13 = 1.00
+    Episode 14/20: SUCCESS (steps=152) | Running SR: 14/14 = 1.00
+    Episode 15/20: SUCCESS (steps=144) | Running SR: 15/15 = 1.00
+    Episode 16/20: SUCCESS (steps=147) | Running SR: 16/16 = 1.00
+    Episode 17/20: SUCCESS (steps=156) | Running SR: 17/17 = 1.00
+    Episode 18/20: SUCCESS (steps=179) | Running SR: 18/18 = 1.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 18/19 = 0.95
+    Episode 20/20: FAIL (steps=600) | Running SR: 18/20 = 0.90
+  Task 0 [pick_up_the_alphabet_soup_and_place_it_in_the]: SR=0.90 (18/20) | 443s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 1 [pick_up_the_cream_cheese_and_place_it_in_the_]: SR=0.00 (0/20) | 1242s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 2 [pick_up_the_salad_dressing_and_place_it_in_th]: SR=0.00 (0/20) | 1244s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 3 [pick_up_the_bbq_sauce_and_place_it_in_the_bas]: SR=0.00 (0/20) | 1202s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: SUCCESS (steps=137) | Running SR: 1/3 = 0.33
+    Episode 4/20: FAIL (steps=600) | Running SR: 1/4 = 0.25
+    Episode 5/20: SUCCESS (steps=135) | Running SR: 2/5 = 0.40
+    Episode 6/20: SUCCESS (steps=135) | Running SR: 3/6 = 0.50
+    Episode 7/20: FAIL (steps=600) | Running SR: 3/7 = 0.43
+    Episode 8/20: FAIL (steps=600) | Running SR: 3/8 = 0.38
+    Episode 9/20: FAIL (steps=600) | Running SR: 3/9 = 0.33
+    Episode 10/20: SUCCESS (steps=161) | Running SR: 4/10 = 0.40
+    Episode 11/20: FAIL (steps=600) | Running SR: 4/11 = 0.36
+    Episode 12/20: SUCCESS (steps=131) | Running SR: 5/12 = 0.42
+    Episode 13/20: SUCCESS (steps=128) | Running SR: 6/13 = 0.46
+    Episode 14/20: SUCCESS (steps=134) | Running SR: 7/14 = 0.50
+    Episode 15/20: SUCCESS (steps=135) | Running SR: 8/15 = 0.53
+    Episode 16/20: FAIL (steps=600) | Running SR: 8/16 = 0.50
+    Episode 17/20: FAIL (steps=600) | Running SR: 8/17 = 0.47
+    Episode 18/20: FAIL (steps=600) | Running SR: 8/18 = 0.44
+    Episode 19/20: FAIL (steps=600) | Running SR: 8/19 = 0.42
+    Episode 20/20: FAIL (steps=600) | Running SR: 8/20 = 0.40
+  Task 4 [pick_up_the_ketchup_and_place_it_in_the_baske]: SR=0.40 (8/20) | 842s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 5 [pick_up_the_tomato_sauce_and_place_it_in_the_]: SR=0.00 (0/20) | 1259s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: SUCCESS (steps=202) | Running SR: 1/8 = 0.12
+    Episode 9/20: FAIL (steps=600) | Running SR: 1/9 = 0.11
+    Episode 10/20: FAIL (steps=600) | Running SR: 1/10 = 0.10
+    Episode 11/20: FAIL (steps=600) | Running SR: 1/11 = 0.09
+    Episode 12/20: FAIL (steps=600) | Running SR: 1/12 = 0.08
+    Episode 13/20: FAIL (steps=600) | Running SR: 1/13 = 0.08
+    Episode 14/20: SUCCESS (steps=163) | Running SR: 2/14 = 0.14
+    Episode 15/20: FAIL (steps=600) | Running SR: 2/15 = 0.13
+    Episode 16/20: FAIL (steps=600) | Running SR: 2/16 = 0.12
+    Episode 17/20: FAIL (steps=600) | Running SR: 2/17 = 0.12
+    Episode 18/20: FAIL (steps=600) | Running SR: 2/18 = 0.11
+    Episode 19/20: FAIL (steps=600) | Running SR: 2/19 = 0.11
+    Episode 20/20: FAIL (steps=600) | Running SR: 2/20 = 0.10
+  Task 6 [pick_up_the_butter_and_place_it_in_the_basket]: SR=0.10 (2/20) | 1154s
+    Episode 1/20: SUCCESS (steps=246) | Running SR: 1/1 = 1.00
+    Episode 2/20: SUCCESS (steps=157) | Running SR: 2/2 = 1.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 2/3 = 0.67
+    Episode 4/20: FAIL (steps=600) | Running SR: 2/4 = 0.50
+    Episode 5/20: FAIL (steps=600) | Running SR: 2/5 = 0.40
+    Episode 6/20: FAIL (steps=600) | Running SR: 2/6 = 0.33
+    Episode 7/20: FAIL (steps=600) | Running SR: 2/7 = 0.29
+    Episode 8/20: FAIL (steps=600) | Running SR: 2/8 = 0.25
+    Episode 9/20: SUCCESS (steps=155) | Running SR: 3/9 = 0.33
+    Episode 10/20: SUCCESS (steps=143) | Running SR: 4/10 = 0.40
+    Episode 11/20: FAIL (steps=600) | Running SR: 4/11 = 0.36
+    Episode 12/20: SUCCESS (steps=134) | Running SR: 5/12 = 0.42
+    Episode 13/20: SUCCESS (steps=136) | Running SR: 6/13 = 0.46
+    Episode 14/20: FAIL (steps=600) | Running SR: 6/14 = 0.43
+    Episode 15/20: SUCCESS (steps=216) | Running SR: 7/15 = 0.47
+    Episode 16/20: SUCCESS (steps=218) | Running SR: 8/16 = 0.50
+    Episode 17/20: FAIL (steps=600) | Running SR: 8/17 = 0.47
+    Episode 18/20: FAIL (steps=600) | Running SR: 8/18 = 0.44
+    Episode 19/20: SUCCESS (steps=138) | Running SR: 9/19 = 0.47
+    Episode 20/20: SUCCESS (steps=168) | Running SR: 10/20 = 0.50
+  Task 7 [pick_up_the_milk_and_place_it_in_the_basket]: SR=0.50 (10/20) | 834s
+
+  --- After task 7 ---
+  Avg SR: 0.2375 | NBT: 0.6143
+
+======================================================================
+Evaluating checkpoint: after_task_08.pt (trained through task 8)
+  Task: pick_up_the_chocolate_pudding_and_place_it_in_the_basket
+======================================================================
+    Episode 1/20: SUCCESS (steps=144) | Running SR: 1/1 = 1.00
+    Episode 2/20: SUCCESS (steps=155) | Running SR: 2/2 = 1.00
+    Episode 3/20: SUCCESS (steps=202) | Running SR: 3/3 = 1.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 3/4 = 0.75
+    Episode 5/20: FAIL (steps=600) | Running SR: 3/5 = 0.60
+    Episode 6/20: SUCCESS (steps=144) | Running SR: 4/6 = 0.67
+    Episode 7/20: FAIL (steps=600) | Running SR: 4/7 = 0.57
+    Episode 8/20: SUCCESS (steps=151) | Running SR: 5/8 = 0.62
+    Episode 9/20: SUCCESS (steps=154) | Running SR: 6/9 = 0.67
+    Episode 10/20: FAIL (steps=600) | Running SR: 6/10 = 0.60
+    Episode 11/20: SUCCESS (steps=153) | Running SR: 7/11 = 0.64
+    Episode 12/20: SUCCESS (steps=152) | Running SR: 8/12 = 0.67
+    Episode 13/20: SUCCESS (steps=150) | Running SR: 9/13 = 0.69
+    Episode 14/20: SUCCESS (steps=146) | Running SR: 10/14 = 0.71
+    Episode 15/20: SUCCESS (steps=147) | Running SR: 11/15 = 0.73
+    Episode 16/20: SUCCESS (steps=152) | Running SR: 12/16 = 0.75
+    Episode 17/20: SUCCESS (steps=158) | Running SR: 13/17 = 0.76
+    Episode 18/20: SUCCESS (steps=161) | Running SR: 14/18 = 0.78
+    Episode 19/20: FAIL (steps=600) | Running SR: 14/19 = 0.74
+    Episode 20/20: FAIL (steps=600) | Running SR: 14/20 = 0.70
+  Task 0 [pick_up_the_alphabet_soup_and_place_it_in_the]: SR=0.70 (14/20) | 608s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 1 [pick_up_the_cream_cheese_and_place_it_in_the_]: SR=0.00 (0/20) | 1260s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 2 [pick_up_the_salad_dressing_and_place_it_in_th]: SR=0.00 (0/20) | 1222s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 3 [pick_up_the_bbq_sauce_and_place_it_in_the_bas]: SR=0.00 (0/20) | 1208s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: SUCCESS (steps=154) | Running SR: 1/3 = 0.33
+    Episode 4/20: FAIL (steps=600) | Running SR: 1/4 = 0.25
+    Episode 5/20: SUCCESS (steps=345) | Running SR: 2/5 = 0.40
+    Episode 6/20: SUCCESS (steps=154) | Running SR: 3/6 = 0.50
+    Episode 7/20: FAIL (steps=600) | Running SR: 3/7 = 0.43
+    Episode 8/20: FAIL (steps=600) | Running SR: 3/8 = 0.38
+    Episode 9/20: FAIL (steps=600) | Running SR: 3/9 = 0.33
+    Episode 10/20: SUCCESS (steps=161) | Running SR: 4/10 = 0.40
+    Episode 11/20: SUCCESS (steps=154) | Running SR: 5/11 = 0.45
+    Episode 12/20: FAIL (steps=600) | Running SR: 5/12 = 0.42
+    Episode 13/20: FAIL (steps=600) | Running SR: 5/13 = 0.38
+    Episode 14/20: SUCCESS (steps=585) | Running SR: 6/14 = 0.43
+    Episode 15/20: SUCCESS (steps=228) | Running SR: 7/15 = 0.47
+    Episode 16/20: FAIL (steps=600) | Running SR: 7/16 = 0.44
+    Episode 17/20: FAIL (steps=600) | Running SR: 7/17 = 0.41
+    Episode 18/20: FAIL (steps=600) | Running SR: 7/18 = 0.39
+    Episode 19/20: FAIL (steps=600) | Running SR: 7/19 = 0.37
+    Episode 20/20: FAIL (steps=600) | Running SR: 7/20 = 0.35
+  Task 4 [pick_up_the_ketchup_and_place_it_in_the_baske]: SR=0.35 (7/20) | 955s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 5 [pick_up_the_tomato_sauce_and_place_it_in_the_]: SR=0.00 (0/20) | 1222s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+/home/kyn7666/anaconda3/envs/lerobot/lib/python3.12/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/kyn7666/anaconda3/envs/lerobot/lib/python3.12/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet18_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet18_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/kyn7666/anaconda3/envs/lerobot/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+/home/kyn7666/anaconda3/envs/lerobot/lib/python3.12/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/kyn7666/anaconda3/envs/lerobot/lib/python3.12/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet18_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet18_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/kyn7666/anaconda3/envs/lerobot/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Computing global action normalization stats...
+Global action stats (from 10 tasks, 74507 steps):
+  mean = [ 0.0692163   0.13333812 -0.04646971  0.00118347  0.00695298 -0.01511651
+  0.06516166]
+  std  = [0.2692731  0.4363849  0.44584423 0.02424685 0.04955153 0.04261696
+ 0.99787474]
+
+Found 10 checkpoint(s) in /home/kyn7666/cl_diffusion_libero-object/checkpoints/cl_libero_object
+  after_task_00.pt
+  after_task_01.pt
+  after_task_02.pt
+  after_task_03.pt
+  after_task_04.pt
+  after_task_05.pt
+  after_task_06.pt
+  after_task_07.pt
+  after_task_08.pt
+  after_task_09.pt
+
+Resuming: already completed tasks [0, 1, 2, 3, 4, 5, 6, 7]
+
+Skipping after_task_00.pt (already evaluated)
+
+Skipping after_task_01.pt (already evaluated)
+
+Skipping after_task_02.pt (already evaluated)
+
+Skipping after_task_03.pt (already evaluated)
+
+Skipping after_task_04.pt (already evaluated)
+
+Skipping after_task_05.pt (already evaluated)
+
+Skipping after_task_06.pt (already evaluated)
+
+Skipping after_task_07.pt (already evaluated)
+
+======================================================================
+Evaluating checkpoint: after_task_08.pt (trained through task 8)
+  Task: pick_up_the_chocolate_pudding_and_place_it_in_the_basket
+======================================================================
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/kyn7666/.cache/libero/assets
+    Episode 1/20: SUCCESS (steps=150) | Running SR: 1/1 = 1.00
+    Episode 2/20: SUCCESS (steps=153) | Running SR: 2/2 = 1.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 2/3 = 0.67
+    Episode 4/20: FAIL (steps=600) | Running SR: 2/4 = 0.50
+    Episode 5/20: FAIL (steps=600) | Running SR: 2/5 = 0.40
+    Episode 6/20: SUCCESS (steps=142) | Running SR: 3/6 = 0.50
+    Episode 7/20: FAIL (steps=600) | Running SR: 3/7 = 0.43
+    Episode 8/20: SUCCESS (steps=150) | Running SR: 4/8 = 0.50
+    Episode 9/20: SUCCESS (steps=146) | Running SR: 5/9 = 0.56
+    Episode 10/20: SUCCESS (steps=216) | Running SR: 6/10 = 0.60
+    Episode 11/20: FAIL (steps=600) | Running SR: 6/11 = 0.55
+    Episode 12/20: SUCCESS (steps=151) | Running SR: 7/12 = 0.58
+    Episode 13/20: SUCCESS (steps=150) | Running SR: 8/13 = 0.62
+    Episode 14/20: SUCCESS (steps=152) | Running SR: 9/14 = 0.64
+    Episode 15/20: SUCCESS (steps=153) | Running SR: 10/15 = 0.67
+    Episode 16/20: SUCCESS (steps=148) | Running SR: 11/16 = 0.69
+    Episode 17/20: SUCCESS (steps=187) | Running SR: 12/17 = 0.71
+    Episode 18/20: SUCCESS (steps=210) | Running SR: 13/18 = 0.72
+    Episode 19/20: FAIL (steps=600) | Running SR: 13/19 = 0.68
+    Episode 20/20: FAIL (steps=600) | Running SR: 13/20 = 0.65
+  Task 0 [pick_up_the_alphabet_soup_and_place_it_in_the]: SR=0.65 (13/20) | 792s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 1 [pick_up_the_cream_cheese_and_place_it_in_the_]: SR=0.00 (0/20) | 1486s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 2 [pick_up_the_salad_dressing_and_place_it_in_th]: SR=0.00 (0/20) | 1461s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 3 [pick_up_the_bbq_sauce_and_place_it_in_the_bas]: SR=0.00 (0/20) | 1438s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: SUCCESS (steps=268) | Running SR: 1/2 = 0.50
+    Episode 3/20: SUCCESS (steps=155) | Running SR: 2/3 = 0.67
+    Episode 4/20: FAIL (steps=600) | Running SR: 2/4 = 0.50
+    Episode 5/20: FAIL (steps=600) | Running SR: 2/5 = 0.40
+    Episode 6/20: SUCCESS (steps=151) | Running SR: 3/6 = 0.50
+    Episode 7/20: FAIL (steps=600) | Running SR: 3/7 = 0.43
+    Episode 8/20: FAIL (steps=600) | Running SR: 3/8 = 0.38
+    Episode 9/20: FAIL (steps=600) | Running SR: 3/9 = 0.33
+    Episode 10/20: SUCCESS (steps=169) | Running SR: 4/10 = 0.40
+    Episode 11/20: SUCCESS (steps=161) | Running SR: 5/11 = 0.45
+    Episode 12/20: SUCCESS (steps=201) | Running SR: 6/12 = 0.50
+    Episode 13/20: FAIL (steps=600) | Running SR: 6/13 = 0.46
+    Episode 14/20: FAIL (steps=600) | Running SR: 6/14 = 0.43
+    Episode 15/20: SUCCESS (steps=166) | Running SR: 7/15 = 0.47
+    Episode 16/20: FAIL (steps=600) | Running SR: 7/16 = 0.44
+    Episode 17/20: FAIL (steps=600) | Running SR: 7/17 = 0.41
+    Episode 18/20: FAIL (steps=600) | Running SR: 7/18 = 0.39
+    Episode 19/20: FAIL (steps=600) | Running SR: 7/19 = 0.37
+    Episode 20/20: FAIL (steps=600) | Running SR: 7/20 = 0.35
+  Task 4 [pick_up_the_ketchup_and_place_it_in_the_baske]: SR=0.35 (7/20) | 1079s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 5 [pick_up_the_tomato_sauce_and_place_it_in_the_]: SR=0.00 (0/20) | 1470s
+    Episode 1/20: SUCCESS (steps=160) | Running SR: 1/1 = 1.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 1/2 = 0.50
+    Episode 3/20: FAIL (steps=600) | Running SR: 1/3 = 0.33
+    Episode 4/20: FAIL (steps=600) | Running SR: 1/4 = 0.25
+    Episode 5/20: FAIL (steps=600) | Running SR: 1/5 = 0.20
+    Episode 6/20: FAIL (steps=600) | Running SR: 1/6 = 0.17
+    Episode 7/20: FAIL (steps=600) | Running SR: 1/7 = 0.14
+    Episode 8/20: FAIL (steps=600) | Running SR: 1/8 = 0.12
+    Episode 9/20: FAIL (steps=600) | Running SR: 1/9 = 0.11
+    Episode 10/20: FAIL (steps=600) | Running SR: 1/10 = 0.10
+    Episode 11/20: FAIL (steps=600) | Running SR: 1/11 = 0.09
+    Episode 12/20: FAIL (steps=600) | Running SR: 1/12 = 0.08
+    Episode 13/20: FAIL (steps=600) | Running SR: 1/13 = 0.08
+    Episode 14/20: SUCCESS (steps=154) | Running SR: 2/14 = 0.14
+    Episode 15/20: FAIL (steps=600) | Running SR: 2/15 = 0.13
+    Episode 16/20: SUCCESS (steps=161) | Running SR: 3/16 = 0.19
+    Episode 17/20: FAIL (steps=600) | Running SR: 3/17 = 0.18
+    Episode 18/20: FAIL (steps=600) | Running SR: 3/18 = 0.17
+    Episode 19/20: FAIL (steps=600) | Running SR: 3/19 = 0.16
+    Episode 20/20: FAIL (steps=600) | Running SR: 3/20 = 0.15
+  Task 6 [pick_up_the_butter_and_place_it_in_the_basket]: SR=0.15 (3/20) | 1302s
+    Episode 1/20: SUCCESS (steps=203) | Running SR: 1/1 = 1.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 1/2 = 0.50
+    Episode 3/20: FAIL (steps=600) | Running SR: 1/3 = 0.33
+    Episode 4/20: SUCCESS (steps=201) | Running SR: 2/4 = 0.50
+    Episode 5/20: SUCCESS (steps=242) | Running SR: 3/5 = 0.60
+    Episode 6/20: FAIL (steps=600) | Running SR: 3/6 = 0.50
+    Episode 7/20: FAIL (steps=600) | Running SR: 3/7 = 0.43
+    Episode 8/20: SUCCESS (steps=203) | Running SR: 4/8 = 0.50
+    Episode 9/20: FAIL (steps=600) | Running SR: 4/9 = 0.44
+    Episode 10/20: FAIL (steps=600) | Running SR: 4/10 = 0.40
+    Episode 11/20: FAIL (steps=600) | Running SR: 4/11 = 0.36
+    Episode 12/20: SUCCESS (steps=206) | Running SR: 5/12 = 0.42
+    Episode 13/20: SUCCESS (steps=244) | Running SR: 6/13 = 0.46
+    Episode 14/20: FAIL (steps=600) | Running SR: 6/14 = 0.43
+    Episode 15/20: FAIL (steps=600) | Running SR: 6/15 = 0.40
+    Episode 16/20: FAIL (steps=600) | Running SR: 6/16 = 0.38
+    Episode 17/20: FAIL (steps=600) | Running SR: 6/17 = 0.35
+    Episode 18/20: FAIL (steps=600) | Running SR: 6/18 = 0.33
+    Episode 19/20: SUCCESS (steps=291) | Running SR: 7/19 = 0.37
+    Episode 20/20: SUCCESS (steps=281) | Running SR: 8/20 = 0.40
+  Task 7 [pick_up_the_milk_and_place_it_in_the_basket]: SR=0.40 (8/20) | 1140s
+    Episode 1/20: SUCCESS (steps=151) | Running SR: 1/1 = 1.00
+    Episode 2/20: SUCCESS (steps=154) | Running SR: 2/2 = 1.00
+    Episode 3/20: SUCCESS (steps=158) | Running SR: 3/3 = 1.00
+    Episode 4/20: SUCCESS (steps=160) | Running SR: 4/4 = 1.00
+    Episode 5/20: SUCCESS (steps=155) | Running SR: 5/5 = 1.00
+    Episode 6/20: SUCCESS (steps=161) | Running SR: 6/6 = 1.00
+    Episode 7/20: SUCCESS (steps=161) | Running SR: 7/7 = 1.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 7/8 = 0.88
+    Episode 9/20: SUCCESS (steps=162) | Running SR: 8/9 = 0.89
+    Episode 10/20: FAIL (steps=600) | Running SR: 8/10 = 0.80
+    Episode 11/20: SUCCESS (steps=161) | Running SR: 9/11 = 0.82
+    Episode 12/20: FAIL (steps=600) | Running SR: 9/12 = 0.75
+    Episode 13/20: SUCCESS (steps=153) | Running SR: 10/13 = 0.77
+    Episode 14/20: FAIL (steps=600) | Running SR: 10/14 = 0.71
+    Episode 15/20: SUCCESS (steps=160) | Running SR: 11/15 = 0.73
+    Episode 16/20: SUCCESS (steps=170) | Running SR: 12/16 = 0.75
+    Episode 17/20: SUCCESS (steps=162) | Running SR: 13/17 = 0.76
+    Episode 18/20: FAIL (steps=600) | Running SR: 13/18 = 0.72
+    Episode 19/20: SUCCESS (steps=149) | Running SR: 14/19 = 0.74
+    Episode 20/20: SUCCESS (steps=178) | Running SR: 15/20 = 0.75
+/home/kyn7666/anaconda3/envs/lerobot/lib/python3.12/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/kyn7666/anaconda3/envs/lerobot/lib/python3.12/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet18_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet18_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+  Task 8 [pick_up_the_chocolate_pudding_and_place_it_in]: SR=0.75 (15/20) | 666s
+
+  --- After task 8 ---
+  Avg SR: 0.2556 | NBT: 0.5812
+
+======================================================================
+Evaluating checkpoint: after_task_09.pt (trained through task 9)
+  Task: pick_up_the_orange_juice_and_place_it_in_the_basket
+======================================================================
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 0 [pick_up_the_alphabet_soup_and_place_it_in_the]: SR=0.00 (0/20) | 1487s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: SUCCESS (steps=163) | Running SR: 1/3 = 0.33
+    Episode 4/20: FAIL (steps=600) | Running SR: 1/4 = 0.25
+    Episode 5/20: FAIL (steps=600) | Running SR: 1/5 = 0.20
+    Episode 6/20: FAIL (steps=600) | Running SR: 1/6 = 0.17
+    Episode 7/20: SUCCESS (steps=160) | Running SR: 2/7 = 0.29
+    Episode 8/20: FAIL (steps=600) | Running SR: 2/8 = 0.25
+    Episode 9/20: FAIL (steps=600) | Running SR: 2/9 = 0.22
+    Episode 10/20: FAIL (steps=600) | Running SR: 2/10 = 0.20
+    Episode 11/20: FAIL (steps=600) | Running SR: 2/11 = 0.18
+    Episode 12/20: FAIL (steps=600) | Running SR: 2/12 = 0.17
+    Episode 13/20: FAIL (steps=600) | Running SR: 2/13 = 0.15
+    Episode 14/20: FAIL (steps=600) | Running SR: 2/14 = 0.14
+    Episode 15/20: FAIL (steps=600) | Running SR: 2/15 = 0.13
+    Episode 16/20: FAIL (steps=600) | Running SR: 2/16 = 0.12
+    Episode 17/20: FAIL (steps=600) | Running SR: 2/17 = 0.12
+    Episode 18/20: FAIL (steps=600) | Running SR: 2/18 = 0.11
+    Episode 19/20: FAIL (steps=600) | Running SR: 2/19 = 0.11
+    Episode 20/20: FAIL (steps=600) | Running SR: 2/20 = 0.10
+  Task 1 [pick_up_the_cream_cheese_and_place_it_in_the_]: SR=0.10 (2/20) | 1362s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: SUCCESS (steps=151) | Running SR: 1/3 = 0.33
+    Episode 4/20: SUCCESS (steps=153) | Running SR: 2/4 = 0.50
+    Episode 5/20: FAIL (steps=600) | Running SR: 2/5 = 0.40
+    Episode 6/20: SUCCESS (steps=135) | Running SR: 3/6 = 0.50
+    Episode 7/20: FAIL (steps=600) | Running SR: 3/7 = 0.43
+    Episode 8/20: SUCCESS (steps=124) | Running SR: 4/8 = 0.50
+    Episode 9/20: FAIL (steps=600) | Running SR: 4/9 = 0.44
+/home/kyn7666/anaconda3/envs/lerobot/lib/python3.12/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/kyn7666/anaconda3/envs/lerobot/lib/python3.12/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet18_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet18_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/kyn7666/anaconda3/envs/lerobot/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Computing global action normalization stats...
+Global action stats (from 10 tasks, 74507 steps):
+  mean = [ 0.0692163   0.13333812 -0.04646971  0.00118347  0.00695298 -0.01511651
+  0.06516166]
+  std  = [0.2692731  0.4363849  0.44584423 0.02424685 0.04955153 0.04261696
+ 0.99787474]
+
+Found 10 checkpoint(s) in /home/kyn7666/cl_diffusion_libero-object/checkpoints/cl_libero_object
+  after_task_00.pt
+  after_task_01.pt
+  after_task_02.pt
+  after_task_03.pt
+  after_task_04.pt
+  after_task_05.pt
+  after_task_06.pt
+  after_task_07.pt
+  after_task_08.pt
+  after_task_09.pt
+
+Resuming: already completed tasks [0, 1, 2, 3, 4, 5, 6, 7, 8]
+
+Skipping after_task_00.pt (already evaluated)
+
+Skipping after_task_01.pt (already evaluated)
+
+Skipping after_task_02.pt (already evaluated)
+
+Skipping after_task_03.pt (already evaluated)
+
+Skipping after_task_04.pt (already evaluated)
+
+Skipping after_task_05.pt (already evaluated)
+
+Skipping after_task_06.pt (already evaluated)
+
+Skipping after_task_07.pt (already evaluated)
+
+Skipping after_task_08.pt (already evaluated)
+
+======================================================================
+Evaluating checkpoint: after_task_09.pt (trained through task 9)
+  Task: pick_up_the_orange_juice_and_place_it_in_the_basket
+======================================================================
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/kyn7666/.cache/libero/assets
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 0 [pick_up_the_alphabet_soup_and_place_it_in_the]: SR=0.00 (0/20) | 1308s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: SUCCESS (steps=180) | Running SR: 1/3 = 0.33
+    Episode 4/20: FAIL (steps=600) | Running SR: 1/4 = 0.25
+    Episode 5/20: FAIL (steps=600) | Running SR: 1/5 = 0.20
+    Episode 6/20: FAIL (steps=600) | Running SR: 1/6 = 0.17
+    Episode 7/20: SUCCESS (steps=167) | Running SR: 2/7 = 0.29
+    Episode 8/20: FAIL (steps=600) | Running SR: 2/8 = 0.25
+    Episode 9/20: FAIL (steps=600) | Running SR: 2/9 = 0.22
+    Episode 10/20: FAIL (steps=600) | Running SR: 2/10 = 0.20
+    Episode 11/20: FAIL (steps=600) | Running SR: 2/11 = 0.18
+    Episode 12/20: FAIL (steps=600) | Running SR: 2/12 = 0.17
+    Episode 13/20: FAIL (steps=600) | Running SR: 2/13 = 0.15
+    Episode 14/20: FAIL (steps=600) | Running SR: 2/14 = 0.14
+    Episode 15/20: FAIL (steps=600) | Running SR: 2/15 = 0.13
+    Episode 16/20: FAIL (steps=600) | Running SR: 2/16 = 0.12
+    Episode 17/20: FAIL (steps=600) | Running SR: 2/17 = 0.12
+    Episode 18/20: FAIL (steps=600) | Running SR: 2/18 = 0.11
+    Episode 19/20: FAIL (steps=600) | Running SR: 2/19 = 0.11
+    Episode 20/20: FAIL (steps=600) | Running SR: 2/20 = 0.10
+  Task 1 [pick_up_the_cream_cheese_and_place_it_in_the_]: SR=0.10 (2/20) | 1137s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: SUCCESS (steps=162) | Running SR: 1/2 = 0.50
+    Episode 3/20: SUCCESS (steps=155) | Running SR: 2/3 = 0.67
+    Episode 4/20: FAIL (steps=600) | Running SR: 2/4 = 0.50
+    Episode 5/20: FAIL (steps=600) | Running SR: 2/5 = 0.40
+    Episode 6/20: SUCCESS (steps=209) | Running SR: 3/6 = 0.50
+    Episode 7/20: FAIL (steps=600) | Running SR: 3/7 = 0.43
+    Episode 8/20: SUCCESS (steps=132) | Running SR: 4/8 = 0.50
+    Episode 9/20: FAIL (steps=600) | Running SR: 4/9 = 0.44
+    Episode 10/20: FAIL (steps=600) | Running SR: 4/10 = 0.40
+    Episode 11/20: FAIL (steps=600) | Running SR: 4/11 = 0.36
+    Episode 12/20: SUCCESS (steps=169) | Running SR: 5/12 = 0.42
+    Episode 13/20: FAIL (steps=600) | Running SR: 5/13 = 0.38
+    Episode 14/20: FAIL (steps=600) | Running SR: 5/14 = 0.36
+    Episode 15/20: FAIL (steps=600) | Running SR: 5/15 = 0.33
+    Episode 16/20: FAIL (steps=600) | Running SR: 5/16 = 0.31
+    Episode 17/20: SUCCESS (steps=172) | Running SR: 6/17 = 0.35
+    Episode 18/20: FAIL (steps=600) | Running SR: 6/18 = 0.33
+    Episode 19/20: FAIL (steps=600) | Running SR: 6/19 = 0.32
+    Episode 20/20: FAIL (steps=600) | Running SR: 6/20 = 0.30
+  Task 2 [pick_up_the_salad_dressing_and_place_it_in_th]: SR=0.30 (6/20) | 967s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: SUCCESS (steps=185) | Running SR: 1/3 = 0.33
+    Episode 4/20: FAIL (steps=600) | Running SR: 1/4 = 0.25
+    Episode 5/20: FAIL (steps=600) | Running SR: 1/5 = 0.20
+    Episode 6/20: FAIL (steps=600) | Running SR: 1/6 = 0.17
+    Episode 7/20: FAIL (steps=600) | Running SR: 1/7 = 0.14
+    Episode 8/20: SUCCESS (steps=247) | Running SR: 2/8 = 0.25
+    Episode 9/20: FAIL (steps=600) | Running SR: 2/9 = 0.22
+    Episode 10/20: FAIL (steps=600) | Running SR: 2/10 = 0.20
+    Episode 11/20: FAIL (steps=600) | Running SR: 2/11 = 0.18
+    Episode 12/20: FAIL (steps=600) | Running SR: 2/12 = 0.17
+    Episode 13/20: SUCCESS (steps=265) | Running SR: 3/13 = 0.23
+    Episode 14/20: FAIL (steps=600) | Running SR: 3/14 = 0.21
+    Episode 15/20: FAIL (steps=600) | Running SR: 3/15 = 0.20
+    Episode 16/20: FAIL (steps=600) | Running SR: 3/16 = 0.19
+    Episode 17/20: FAIL (steps=600) | Running SR: 3/17 = 0.18
+    Episode 18/20: FAIL (steps=600) | Running SR: 3/18 = 0.17
+    Episode 19/20: FAIL (steps=600) | Running SR: 3/19 = 0.16
+    Episode 20/20: FAIL (steps=600) | Running SR: 3/20 = 0.15
+  Task 3 [pick_up_the_bbq_sauce_and_place_it_in_the_bas]: SR=0.15 (3/20) | 1094s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 4 [pick_up_the_ketchup_and_place_it_in_the_baske]: SR=0.00 (0/20) | 1210s
+    Episode 1/20: SUCCESS (steps=212) | Running SR: 1/1 = 1.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 1/2 = 0.50
+    Episode 3/20: FAIL (steps=600) | Running SR: 1/3 = 0.33
+    Episode 4/20: FAIL (steps=600) | Running SR: 1/4 = 0.25
+    Episode 5/20: FAIL (steps=600) | Running SR: 1/5 = 0.20
+    Episode 6/20: FAIL (steps=600) | Running SR: 1/6 = 0.17
+    Episode 7/20: FAIL (steps=600) | Running SR: 1/7 = 0.14
+    Episode 8/20: FAIL (steps=600) | Running SR: 1/8 = 0.12
+    Episode 9/20: SUCCESS (steps=368) | Running SR: 2/9 = 0.22
+    Episode 10/20: SUCCESS (steps=206) | Running SR: 3/10 = 0.30
+    Episode 11/20: FAIL (steps=600) | Running SR: 3/11 = 0.27
+    Episode 12/20: FAIL (steps=600) | Running SR: 3/12 = 0.25
+    Episode 13/20: FAIL (steps=600) | Running SR: 3/13 = 0.23
+    Episode 14/20: SUCCESS (steps=282) | Running SR: 4/14 = 0.29
+    Episode 15/20: FAIL (steps=600) | Running SR: 4/15 = 0.27
+    Episode 16/20: FAIL (steps=600) | Running SR: 4/16 = 0.25
+    Episode 17/20: FAIL (steps=600) | Running SR: 4/17 = 0.24
+    Episode 18/20: FAIL (steps=600) | Running SR: 4/18 = 0.22
+    Episode 19/20: FAIL (steps=600) | Running SR: 4/19 = 0.21
+    Episode 20/20: FAIL (steps=600) | Running SR: 4/20 = 0.20
+  Task 5 [pick_up_the_tomato_sauce_and_place_it_in_the_]: SR=0.20 (4/20) | 1094s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 6 [pick_up_the_butter_and_place_it_in_the_basket]: SR=0.00 (0/20) | 1252s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 7 [pick_up_the_milk_and_place_it_in_the_basket]: SR=0.00 (0/20) | 1246s
+    Episode 1/20: FAIL (steps=600) | Running SR: 0/1 = 0.00
+    Episode 2/20: FAIL (steps=600) | Running SR: 0/2 = 0.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 0/3 = 0.00
+    Episode 4/20: FAIL (steps=600) | Running SR: 0/4 = 0.00
+    Episode 5/20: FAIL (steps=600) | Running SR: 0/5 = 0.00
+    Episode 6/20: FAIL (steps=600) | Running SR: 0/6 = 0.00
+    Episode 7/20: FAIL (steps=600) | Running SR: 0/7 = 0.00
+    Episode 8/20: FAIL (steps=600) | Running SR: 0/8 = 0.00
+    Episode 9/20: FAIL (steps=600) | Running SR: 0/9 = 0.00
+    Episode 10/20: FAIL (steps=600) | Running SR: 0/10 = 0.00
+    Episode 11/20: FAIL (steps=600) | Running SR: 0/11 = 0.00
+    Episode 12/20: FAIL (steps=600) | Running SR: 0/12 = 0.00
+    Episode 13/20: FAIL (steps=600) | Running SR: 0/13 = 0.00
+    Episode 14/20: FAIL (steps=600) | Running SR: 0/14 = 0.00
+    Episode 15/20: FAIL (steps=600) | Running SR: 0/15 = 0.00
+    Episode 16/20: FAIL (steps=600) | Running SR: 0/16 = 0.00
+    Episode 17/20: FAIL (steps=600) | Running SR: 0/17 = 0.00
+    Episode 18/20: FAIL (steps=600) | Running SR: 0/18 = 0.00
+    Episode 19/20: FAIL (steps=600) | Running SR: 0/19 = 0.00
+    Episode 20/20: FAIL (steps=600) | Running SR: 0/20 = 0.00
+  Task 8 [pick_up_the_chocolate_pudding_and_place_it_in]: SR=0.00 (0/20) | 1257s
+    Episode 1/20: SUCCESS (steps=139) | Running SR: 1/1 = 1.00
+    Episode 2/20: SUCCESS (steps=131) | Running SR: 2/2 = 1.00
+    Episode 3/20: FAIL (steps=600) | Running SR: 2/3 = 0.67
+    Episode 4/20: FAIL (steps=600) | Running SR: 2/4 = 0.50
+    Episode 5/20: FAIL (steps=600) | Running SR: 2/5 = 0.40
+    Episode 6/20: FAIL (steps=600) | Running SR: 2/6 = 0.33
+    Episode 7/20: FAIL (steps=600) | Running SR: 2/7 = 0.29
+    Episode 8/20: FAIL (steps=600) | Running SR: 2/8 = 0.25
+    Episode 9/20: FAIL (steps=600) | Running SR: 2/9 = 0.22
+    Episode 10/20: FAIL (steps=600) | Running SR: 2/10 = 0.20
+    Episode 11/20: FAIL (steps=600) | Running SR: 2/11 = 0.18
+    Episode 12/20: FAIL (steps=600) | Running SR: 2/12 = 0.17
+    Episode 13/20: FAIL (steps=600) | Running SR: 2/13 = 0.15
+    Episode 14/20: FAIL (steps=600) | Running SR: 2/14 = 0.14
+    Episode 15/20: FAIL (steps=600) | Running SR: 2/15 = 0.13
+    Episode 16/20: FAIL (steps=600) | Running SR: 2/16 = 0.12
+    Episode 17/20: SUCCESS (steps=129) | Running SR: 3/17 = 0.18
+    Episode 18/20: FAIL (steps=600) | Running SR: 3/18 = 0.17
+    Episode 19/20: SUCCESS (steps=131) | Running SR: 4/19 = 0.21
+    Episode 20/20: SUCCESS (steps=147) | Running SR: 5/20 = 0.25
+  Task 9 [pick_up_the_orange_juice_and_place_it_in_the_]: SR=0.25 (5/20) | 987s
+
+  --- After task 9 ---
+  Avg SR: 0.1000 | NBT: 0.6889
+
+======================================================================
+EVALUATION COMPLETE
+======================================================================
+  Average SR (final): 0.1000
+  NBT: 0.6889
+  Total eval time: 192.8 min
+
+  Performance Matrix:
+   0.75   --    --    --    --    --    --    --    --    --  
+   0.00  0.70   --    --    --    --    --    --    --    --  
+   0.00  0.55  0.90   --    --    --    --    --    --    --  
+   0.00  0.90  0.95  1.00   --    --    --    --    --    --  
+   0.85  0.00  0.00  0.00  0.85   --    --    --    --    --  
+   0.00  0.15  0.25  0.25  0.00  0.90   --    --    --    --  
+   0.65  0.00  0.00  0.00  0.10  0.00  0.20   --    --    --  
+   0.90  0.00  0.00  0.00  0.40  0.00  0.10  0.50   --    --  
+   0.65  0.00  0.00  0.00  0.35  0.00  0.15  0.40  0.75   --  
+   0.00  0.10  0.30  0.15  0.00  0.20  0.00  0.00  0.00  0.25 
+
+Results saved to /home/kyn7666/cl_diffusion_libero-object/results/cl_libero_object/results.json
+CSV saved to /home/kyn7666/cl_diffusion_libero-object/results/cl_libero_object/perf_matrix.csv
+Heatmap saved to /home/kyn7666/cl_diffusion_libero-object/results/cl_libero_object/heatmap.png
+Forgetting summary saved to /home/kyn7666/cl_diffusion_libero-object/results/cl_libero_object/forgetting_summary.png
+
+All results saved to: /home/kyn7666/cl_diffusion_libero-object/results/cl_libero_object
+Done!

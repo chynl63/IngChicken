@@ -1,0 +1,272 @@
+# -*- coding: utf-8 -*-
+"""
+Standalone evaluation of saved checkpoints from sequential CL training.
+
+Loads each checkpoint (after_task_00.pt .. after_task_09.pt), evaluates on
+all tasks seen up to that point, and produces the full performance matrix,
+metrics, and visualizations.
+
+Usage:
+    python -m scripts.evaluation.evaluate_checkpoints --config /path/to/config.yaml
+    python -m scripts.evaluation.evaluate_checkpoints --config /path/to/config.yaml --ckpt-dir /path/to/ckpts
+"""
+
+import argparse
+import json
+import os
+import time
+from pathlib import Path
+
+import numpy as np
+import torch
+import yaml
+
+from scripts.model import DiffusionPolicy
+from scripts.datasets import compute_global_action_stats
+from libero.libero.benchmark import get_benchmark
+from scripts.evaluation.rollout_evaluator import evaluate_policy_on_task
+from scripts.evaluation.cl_metrics import (
+    compute_nbt,
+    compute_average_sr,
+    compute_average_sr_per_stage,
+    save_results_json,
+    save_results_csv,
+    plot_performance_matrix,
+    plot_forgetting_summary,
+)
+
+
+def evaluate_all_checkpoints(cfg, ckpt_dir=None, results_dir=None, ckpt_pattern=None, resume=False):
+    device = torch.device(cfg.get("device", "cuda"))
+    seed = cfg.get("seed", 42)
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+
+    data_cfg = cfg["data"]
+    eval_cfg = cfg["evaluation"]
+    log_cfg = cfg["logging"]
+
+    if ckpt_dir is None:
+        ckpt_dir = Path(log_cfg["checkpoint_dir"])
+    else:
+        ckpt_dir = Path(ckpt_dir)
+
+    if results_dir is None:
+        results_dir = Path(log_cfg["results_dir"])
+    else:
+        results_dir = Path(results_dir)
+    results_dir.mkdir(parents=True, exist_ok=True)
+
+    benchmark = get_benchmark(cfg["benchmark"]["name"])(
+        task_order_index=cfg["benchmark"].get("task_order_index", 0)
+    )
+    n_tasks = benchmark.get_num_tasks()
+    task_names = benchmark.get_task_names()
+    data_root = cfg["benchmark"]["data_root"]
+
+    print("Computing global action normalization stats...")
+    action_mean, action_std = compute_global_action_stats(data_root, benchmark)
+
+    low_dim_keys = [k for k in data_cfg["obs_keys"] if "image" not in k]
+
+    # Allow restricting to a subset / single checkpoint via pattern
+    pattern = ckpt_pattern or "after_task_*.pt"
+    ckpt_files = sorted(ckpt_dir.glob(pattern))
+    if not ckpt_files:
+        print(f"No checkpoints found in {ckpt_dir}")
+        return
+
+    n_found = len(ckpt_files)
+    print(f"\nFound {n_found} checkpoint(s) in {ckpt_dir}")
+    for f in ckpt_files:
+        print(f"  {f.name}")
+
+    perf_matrix = np.full((n_tasks, n_tasks), np.nan)
+    eval_log = []
+    completed_tasks = set()
+
+    # Resume: load existing progress
+    eval_log_path = results_dir / "eval_log.json"
+    perf_matrix_path = results_dir / "perf_matrix_intermediate.npy"
+    if resume and eval_log_path.exists() and perf_matrix_path.exists():
+        with open(eval_log_path) as f:
+            eval_log = json.load(f)
+        perf_matrix = np.load(perf_matrix_path)
+        completed_tasks = {entry["task_idx"] for entry in eval_log}
+        print(f"\nResuming: already completed tasks {sorted(completed_tasks)}")
+
+    total_start = time.time()
+
+    for ckpt_path in ckpt_files:
+        ckpt = torch.load(ckpt_path, map_location=device, weights_only=False)
+        task_k = ckpt["task_idx"]
+
+        if task_k in completed_tasks:
+            print(f"\nSkipping {ckpt_path.name} (already evaluated)")
+            continue
+
+        print("\n" + "=" * 70)
+        print(f"Evaluating checkpoint: {ckpt_path.name} (trained through task {task_k})")
+        print(f"  Task: {task_names[task_k]}")
+        print("=" * 70)
+
+        model = DiffusionPolicy(cfg).to(device)
+        model.load_state_dict(ckpt["model_state_dict"])
+        model.eval()
+
+        task_indices = list(range(task_k + 1))
+        stage_results = {}
+
+        for task_j in task_indices:
+            t_start = time.time()
+            sr, ep_results = evaluate_policy_on_task(
+                model=model,
+                benchmark=benchmark,
+                task_idx=task_j,
+                num_episodes=eval_cfg.get("num_episodes", 20),
+                max_steps=eval_cfg.get("max_steps_per_episode", 300),
+                action_execution_horizon=eval_cfg.get("action_execution_horizon", 8),
+                action_mean=action_mean if data_cfg.get("normalize_action", True) else None,
+                action_std=action_std if data_cfg.get("normalize_action", True) else None,
+                obs_horizon=data_cfg["obs_horizon"],
+                image_size=tuple(data_cfg.get("image_size", [128, 128])),
+                use_eye_in_hand=data_cfg.get("use_eye_in_hand", True),
+                low_dim_keys=low_dim_keys,
+                device=device,
+                use_ddim=eval_cfg.get("use_ddim", True),
+                ddim_steps=eval_cfg.get("ddim_steps", 16),
+                seed=seed,
+            )
+            t_elapsed = time.time() - t_start
+
+            perf_matrix[task_k, task_j] = sr
+
+            n_success = sum(ep_results)
+            n_total = len(ep_results)
+            print(f"  Task {task_j} [{task_names[task_j][:45]}]: "
+                  f"SR={sr:.2f} ({n_success}/{n_total}) | {t_elapsed:.0f}s")
+
+            stage_results[task_j] = {
+                "success_rate": float(sr),
+                "episode_results": [int(e) for e in ep_results],
+                "eval_time_s": round(t_elapsed, 1),
+            }
+
+        avg_sr = np.nanmean(perf_matrix[task_k, :task_k + 1])
+        nbt_so_far = compute_nbt(perf_matrix[:task_k + 1, :task_k + 1])
+
+        print(f"\n  --- After task {task_k} ---")
+        print(f"  Avg SR: {avg_sr:.4f} | NBT: {nbt_so_far:.4f}")
+
+        eval_log.append({
+            "checkpoint": ckpt_path.name,
+            "task_idx": task_k,
+            "task_name": task_names[task_k],
+            "avg_sr": float(avg_sr),
+            "nbt": float(nbt_so_far),
+            "task_results": stage_results,
+        })
+
+        # Save intermediate progress
+        np.save(results_dir / "perf_matrix_intermediate.npy", perf_matrix)
+        with open(results_dir / "eval_log.json", "w") as f:
+            json.dump(eval_log, f, indent=2)
+
+        del model
+        torch.cuda.empty_cache()
+
+    total_time = time.time() - total_start
+
+    # ── Final metrics ──
+    print("\n" + "=" * 70)
+    print("EVALUATION COMPLETE")
+    print("=" * 70)
+
+    nbt_final = compute_nbt(perf_matrix[:n_found, :n_found])
+    avg_sr_final = compute_average_sr(perf_matrix[:n_found, :n_found])
+
+    print(f"  Average SR (final): {avg_sr_final:.4f}")
+    print(f"  NBT: {nbt_final:.4f}")
+    print(f"  Total eval time: {total_time / 60:.1f} min")
+    print()
+
+    print("  Performance Matrix:")
+    for i in range(n_found):
+        row_str = "  "
+        for j in range(n_found):
+            if np.isnan(perf_matrix[i, j]):
+                row_str += "  --  "
+            else:
+                row_str += f" {perf_matrix[i, j]:.2f} "
+        print(row_str)
+    print()
+
+    save_results_json(
+        perf_matrix, task_names, nbt_final, avg_sr_final, cfg,
+        str(results_dir / "results.json"),
+    )
+    save_results_csv(perf_matrix, task_names, str(results_dir / "perf_matrix.csv"))
+    np.save(results_dir / "perf_matrix.npy", perf_matrix)
+
+    with open(results_dir / "eval_log.json", "w") as f:
+        json.dump(eval_log, f, indent=2)
+
+    plot_performance_matrix(
+        perf_matrix, task_names, str(results_dir / "heatmap.png")
+    )
+    plot_forgetting_summary(
+        perf_matrix, task_names, str(results_dir / "forgetting_summary.png")
+    )
+
+    print(f"\nAll results saved to: {results_dir}")
+    print("Done!")
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Evaluate saved CL checkpoints on LIBERO tasks"
+    )
+    parser.add_argument(
+        "--config",
+        type=str,
+        default="/workspace/configs/continual_learning_libero_object.yaml",
+    )
+    parser.add_argument(
+        "--ckpt-dir",
+        type=str,
+        default=None,
+        help="Override checkpoint directory from config.",
+    )
+    parser.add_argument(
+        "--results-dir",
+        type=str,
+        default=None,
+        help="Override results directory from config.",
+    )
+    parser.add_argument(
+        "--resume",
+        action="store_true",
+        help="Resume from existing eval_log.json, skipping already completed checkpoints.",
+    )
+    parser.add_argument(
+        "--ckpt-pattern",
+        type=str,
+        default=None,
+        help=(
+            "Optional glob pattern to select a subset of checkpoints inside ckpt-dir, "
+            'e.g. "after_task_05.pt" or "after_task_0[0-4].pt". '
+            "If not provided, all 'after_task_*.pt' are evaluated."
+        ),
+    )
+    args = parser.parse_args()
+
+    with open(args.config, "r") as f:
+        cfg = yaml.safe_load(f)
+
+    evaluate_all_checkpoints(
+        cfg,
+        ckpt_dir=args.ckpt_dir,
+        results_dir=args.results_dir,
+        ckpt_pattern=args.ckpt_pattern,
+        resume=args.resume,
+    )

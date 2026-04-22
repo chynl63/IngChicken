@@ -1,0 +1,46 @@
+# Large artifacts / binaries
+*.sif
+*.tar
+*.tar.gz
+*.pt
+*.pth
+*.ckpt
+
+# Experiment outputs
+checkpoints/
+logs/
+results/
+
+# Datasets and caches (download separately)
+data/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+.env
+.env.*
+
+# Build / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Tools
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Editors / OS
+.idea/
+.vscode/
+*.swp
+*~
+.DS_Store

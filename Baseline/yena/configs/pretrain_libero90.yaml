@@ -1,0 +1,58 @@
+seed: 42
+device: "cuda"
+
+pretrain:
+  data_dir: "/scratch2/kyn7666/libero_data/libero_90"
+  epochs: 50
+  samples_per_epoch: null  # null = use full dataset
+  max_episodes_per_task: null  # null = use all episodes
+
+data:
+  obs_horizon: 2
+  action_horizon: 16
+  action_dim: 7
+  batch_size: 64
+  num_workers: 4
+  normalize_action: true
+  use_eye_in_hand: true
+  image_size: [128, 128]
+  obs_keys:
+    - "agentview_image"
+    - "ee_pos"
+    - "ee_ori"
+    - "gripper_states"
+
+vision_encoder:
+  type: "resnet18"
+  pretrained: true
+  feature_dim: 512
+  spatial_softmax: true
+  num_kp: 32
+
+diffusion:
+  type: "ddpm"
+  num_diffusion_steps: 100
+  beta_schedule: "squaredcos_cap_v2"
+  prediction_type: "epsilon"
+  clip_sample: true
+
+unet:
+  down_dims: [256, 512, 1024]
+  kernel_size: 5
+  n_groups: 8
+  cond_predict_scale: true
+
+training:
+  learning_rate: 1.0e-4
+  weight_decay: 1.0e-6
+  lr_scheduler: "cosine"
+  lr_warmup_steps: 1000
+  ema_decay: 0.995
+  gradient_clip: 1.0
+  mixed_precision: true
+
+logging:
+  project: "diffusion_policy_pretrain_libero90"
+  log_interval: 100
+  checkpoint_dir: "/home/kyn7666/cl_diffusion_libero-object/checkpoints/pretrain_libero90"
+  use_wandb: false
