@@ -1,0 +1,82 @@
+# One-off sanity check: video saving + single checkpoint via --ckpt-pattern
+seed: 42
+device: "cuda"
+weights_dir: ""
+
+benchmark:
+  name: "libero_object"
+  task_order_index: 0
+  data_root: "/workspace/data"
+
+data:
+  obs_horizon: 2
+  action_horizon: 16
+  action_dim: 7
+  batch_size: 64
+  num_workers: 2
+  normalize_action: true
+  use_eye_in_hand: true
+  image_size: [128, 128]
+  obs_keys:
+    - "agentview_image"
+    - "ee_pos"
+    - "ee_ori"
+    - "gripper_states"
+
+vision_encoder:
+  type: "resnet18"
+  pretrained: true
+  feature_dim: 512
+  spatial_softmax: true
+  num_kp: 32
+
+diffusion:
+  type: "ddpm"
+  num_diffusion_steps: 100
+  beta_schedule: "squaredcos_cap_v2"
+  prediction_type: "epsilon"
+  clip_sample: true
+
+unet:
+  down_dims: [256, 512, 1024]
+  kernel_size: 5
+  n_groups: 8
+  cond_predict_scale: true
+
+continual_learning:
+  epochs_per_task: 50
+
+training:
+  learning_rate: 1.0e-4
+  weight_decay: 1.0e-6
+  lr_scheduler: "cosine"
+  lr_warmup_steps: 500
+  ema_decay: 0.995
+  gradient_clip: 1.0
+  mixed_precision: true
+
+evaluation:
+  num_episodes: 10
+  max_steps_per_episode: 300
+  action_execution_horizon: 8
+  use_ddim: true
+  ddim_steps: 16
+  save_plots: true
+  save_video: true
+  video_fps: 20
+  video_episodes_to_save: 1
+  video_camera_key: "agentview_image"
+
+replay:
+  enabled: false
+  buffer_size: 0
+  mix_ratio: 0.5
+
+logging:
+  project: "diffusion_policy_cl_libero_object"
+  log_interval: 50
+  exp_name: "cl_libero_object"
+  checkpoint_dir: "/workspace/checkpoints/cl_libero_object"
+  results_dir: "/workspace/results/cl_libero_object"
+  use_wandb: false
+  use_tensorboard: true
