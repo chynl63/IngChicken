@@ -1,0 +1,66 @@
+# Diffusion Policy for LIBERO-90 with per-task uniform sampling
+
+seed: 42
+device: "cuda"
+
+# --- Data ---
+data:
+  data_dir: "/workspace/data/libero90"
+  obs_horizon: 2          # number of past observation steps
+  action_horizon: 16      # number of future action steps to predict
+  action_dim: 7           # 6-DoF + gripper
+  batch_size: 64
+  num_workers: 4
+  samples_per_epoch: 50000
+  normalize_action: true
+  use_eye_in_hand: true
+  image_size: [128, 128]
+  obs_keys:
+    - "agentview_image"
+    - "robot0_eef_pos"
+    - "robot0_eef_quat"
+    - "robot0_gripper_qpos"
+
+# --- Vision Encoder ---
+vision_encoder:
+  type: "resnet18"        # resnet18 / resnet34
+  pretrained: true
+  feature_dim: 512
+  spatial_softmax: true   # use spatial softmax pooling
+  num_kp: 32              # number of keypoints for spatial softmax
+
+# --- Diffusion Model ---
+diffusion:
+  type: "ddpm"            # ddpm / ddim
+  num_diffusion_steps: 100
+  num_inference_steps: 16  # DDIM inference steps (only used if type=ddim)
+  beta_schedule: "squaredcos_cap_v2"
+  prediction_type: "epsilon"
+  clip_sample: true
+
+# --- UNet ---
+unet:
+  down_dims: [256, 512, 1024]
+  kernel_size: 5
+  n_groups: 8
+  cond_predict_scale: true
+
+# --- Training ---
+training:
+  num_epochs: 500
+  learning_rate: 1.0e-4
+  weight_decay: 1.0e-6
+  lr_scheduler: "cosine"
+  lr_warmup_steps: 500
+  ema_decay: 0.995
+  gradient_clip: 1.0
+  mixed_precision: true   # fp16 training
+
+# --- Logging ---
+logging:
+  project: "diffusion_policy_libero90"
+  log_interval: 100       # log every N steps
+  save_interval: 10       # save checkpoint every N epochs
+  checkpoint_dir: "/workspace/checkpoints"
+  use_wandb: false        # set to true if you have wandb configured
+  use_tensorboard: false
